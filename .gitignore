@@ -1,0 +1,61 @@
+# ---------------- secrets / config ----------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials
+aws.json
+
+# ---------------- python ----------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------------- databases ----------------
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# ---------------- node / frontend ----------------
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------------- editors / os ----------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---------------- generated media ----------------
+# Rendered post images, ad creatives, posters and charts. Reproducible output,
+# pruned to MEDIA_MAX_FILES at runtime — never source.
+backend/generated_media/
+generated_media/
+
+# ---------------- local backups ----------------
+.backup/
+
+# ---------------- logs ----------------
+logs/
+*.log
