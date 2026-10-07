@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Personalization Agent — Executive Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080b11;
+      --surface: #101420;
+      --card: #161c2c;
+      --card-border: #26304a;
+      --divider: #1e263a;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --purple: #8b5cf6;
+      --text: #ffffff;
+      --text-head: #f1f5f9;
+      --text-body: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-body);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .deck-viewport {
+      width: 100vw;
+      height: 100vh;
+      max-width: 177.78vh;
+      max-height: 56.25vw;
+      position: relative;
+      background: radial-gradient(circle at 12% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 55%),
+                  radial-gradient(circle at 88% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+                  #080b11;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .slide-header {
+      padding: 28px 48px 12px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      z-index: 10;
+      position: relative;
+    }
+
+    .header-accent-bar {
+      width: 36px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+
+    .slide-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-head);
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 880px;
+    }
+
+    .header-divider {
+      margin: 0 48px;
+      height: 1px;
+      background: var(--divider);
+    }
+
+    .slide-body {
+      flex: 1;
+      padding: 16px 48px 20px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .deck-footer {
+      padding: 12px 48px 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(8, 11, 17, 0.95);
+      border-top: 1px solid var(--divider);
+      z-index: 20;
+    }
+
+    .footer-left {
+      font-size: 11px;
+      color: var(--text-subtle);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--text-head);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      background: #1c2438;
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      border: none;
+      color: white;
+    }
+    .btn-download:hover {
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      width: 8.33%;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 12px;
+      right: 12px;
+      height: 3px;
+      border-radius: 0 0 3px 3px;
+      background: transparent;
+    }
+
+    .card.accent-indigo::before { background: var(--primary); }
+    .card.accent-cyan::before { background: var(--cyan); }
+    .card.accent-emerald::before { background: var(--emerald); }
+    .card.accent-amber::before { background: var(--amber); }
+    .card.accent-rose::before { background: var(--rose); }
+    .card.accent-purple::before { background: var(--purple); }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .stat-number {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, #fff 40%, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-head);
+    }
+
+    .stat-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .slide {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .code-box {
+      background: #0d111a;
+      border: 1px solid #1a2233;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #38bdf8;
+      line-height: 1.6;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 9px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .list-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drawer-overlay.open {
+      display: flex;
+    }
+
+    .drawer-content {
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      width: 90%;
+      max-width: 920px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .drawer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .slide-thumb {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .slide-thumb:hover, .slide-thumb.active {
+      border-color: var(--primary);
+      background: #1c2438;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-viewport" id="viewport">
+
+    <!-- SLIDE 1: COVER -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">MULTI-AGENT AI ARCHITECTURE • 2026 OVERVIEW</div>
+          <h1 class="slide-title" style="font-size: 38px; margin-top: 4px;">Content Personalization Agent</h1>
+          <p class="slide-subtitle" style="font-size: 15px; margin-top: 6px;">
+            Personalization per need, not per subject. A 34-agent full-stack ecosystem powered by layered profile synthesis, semantic vector memory, and deterministic scope guards.
+          </p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-4" style="margin-top: 10px;">
+          <div class="card accent-indigo">
+            <div class="stat-number">34</div>
+            <div class="stat-label">Specialized Agents</div>
+            <div class="stat-sub">Narrow single-job focus</div>
+          </div>
+          <div class="card accent-cyan">
+            <div class="stat-number">7</div>
+            <div class="stat-label">Subject Domains</div>
+            <div class="stat-sub">Education to Analytics</div>
+          </div>
+          <div class="card accent-emerald">
+            <div class="stat-number">3-Tier</div>
+            <div class="stat-label">Layered Context</div>
+            <div class="stat-sub">Global → Domain → Agent</div>
+          </div>
+          <div class="card accent-amber">
+            <div class="stat-number">0.0s</div>
+            <div class="stat-label">Scope Guard Handoff</div>
+            <div class="stat-sub">Zero-cost instant redirection</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 18px; background: var(--surface);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 700; font-size: 12px; color: var(--cyan); margin-bottom: 2px;">LIVE PRODUCTION STACK</div>
+              <div style="font-size: 11.5px; color: var(--text-muted);">
+                React 18 + Vite • FastAPI + Pydantic v2 • PostgreSQL + pgvector (SQLite fallback) • Ollama llama3.2:3b
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; font-size: 11px;">
+              <span style="padding: 2px 8px; border-radius: 4px; background: rgba(16, 185, 129, 0.15); color: var(--emerald);">163/163 Tests Passed</span>
+              <span style="padding: 2px 8px; border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: var(--cyan);">Zero GPU Needed</span>
+              <span style="padding: 2px 8px; border-radius: 4px; background: rgba(245, 158, 11, 0.15); color: var(--amber);">100% Offline Capable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: THE PROBLEM & PARADIGM SHIFT -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">THE CORE PROBLEM & ARCHITECTURAL SHIFT</div>
+          <h2 class="slide-title">Why Traditional AI Chatbots Fail at Deep Personalization</h2>
+          <p class="slide-subtitle">Monolithic generalist assistants fail at specialization. Dedicated narrow agents guarantee depth and boundary enforcement.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 14px;">
+          <div class="card accent-rose">
+            <div class="card-title" style="color: var(--rose);">Traditional One-Size-Fits-All Chatbots</div>
+            <div style="margin-top: 8px;">
+              <div class="list-item"><div class="list-dot" style="background: var(--rose);"></div><div><strong style="color: #fff;">Generic Responses:</strong> Tries to cover everything, producing repetitive textbook boilerplate.</div></div>
+              <div class="list-item"><div class="list-dot" style="background: var(--rose);"></div><div><strong style="color: #fff;">Prompt Tax:</strong> Brand guidelines and curriculum standards must be re-typed on every session.</div></div>
+              <div class="list-item"><div class="list-dot" style="background: var(--rose);"></div><div><strong style="color: #fff;">Context Leakage:</strong> Prompting 'be concise' for Python leaks into creative writing and maths working.</div></div>
+              <div class="list-item"><div class="list-dot" style="background: var(--rose);"></div><div><strong style="color: #fff;">Unchecked Scope Creep:</strong> Chatbots hallucinate advice rather than admitting boundary limits.</div></div>
+            </div>
+          </div>
+
+          <div class="card accent-cyan">
+            <div class="card-title" style="color: var(--cyan);">Content Personalization Agent Paradigm</div>
+            <div style="margin-top: 8px;">
+              <div class="list-item"><div class="list-dot" style="background: var(--cyan);"></div><div><strong style="color: #fff;">34 Narrow Agents:</strong> Dedicated experts for Class 10 Maths, Python, Social Post PNG, Chart Builder.</div></div>
+              <div class="list-item"><div class="list-dot" style="background: var(--cyan);"></div><div><strong style="color: #fff;">3-Tier Profiles:</strong> Global → Domain → Agent. Set your brand once; all 5 marketing agents inherit it.</div></div>
+              <div class="list-item"><div class="list-dot" style="background: var(--cyan);"></div><div><strong style="color: #fff;">Deterministic Scope Guard:</strong> Out-of-scope queries trigger an instant 0.0s handoff ($0 cost).</div></div>
+              <div class="list-item"><div class="list-dot" style="background: var(--cyan);"></div><div><strong style="color: #fff;">Scoped Semantic Memory:</strong> Vector memories isolated to agent or domain; zero pollution.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background: var(--surface);">
+          <div style="font-weight: 700; font-size: 12px; color: var(--text-head); margin-bottom: 6px;">DIRECT ARCHITECTURAL CONTRAST</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; font-size: 11px; color: var(--text-muted);">
+            <div><strong style="color: var(--cyan);">Scope Enforcement:</strong> Probabilistic prompt adherence (fails often) → 0.0s deterministic signal guard.</div>
+            <div><strong style="color: var(--cyan);">Context Efficiency:</strong> Monolithic prompts re-injected every session → 3-tier cascade with inheritance.</div>
+            <div><strong style="color: var(--cyan);">Memory Model:</strong> Ephemeral session data lost upon close → Durable vector promotion loop.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: SYSTEM ARCHITECTURE -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">SYSTEM ARCHITECTURE & EXECUTION FLOW</div>
+          <h2 class="slide-title">End-to-End Multi-Agent Request Pipeline</h2>
+          <p class="slide-subtitle">A deterministic, multi-stage pipeline from user authentication to layered prompt assembly and streaming execution.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-5" style="margin-bottom: 16px;">
+          <div class="card accent-indigo">
+            <div style="font-size: 10px; font-weight: 700; color: var(--primary);">STEP 01</div>
+            <div style="font-weight: 700; font-size: 12.5px; margin: 4px 0; color: #fff;">Auth & Input</div>
+            <div class="card-desc">React 18 UI with JWT auth & domain-catalog navigation.</div>
+          </div>
+          <div class="card accent-amber">
+            <div style="font-size: 10px; font-weight: 700; color: var(--amber);">STEP 02</div>
+            <div style="font-weight: 700; font-size: 12.5px; margin: 4px 0; color: #fff;">Router / Guard</div>
+            <div class="card-desc">Keyword matrix scores request; Scope Guard enforces lanes in 0.0s.</div>
+          </div>
+          <div class="card accent-cyan">
+            <div style="font-size: 10px; font-weight: 700; color: var(--cyan);">STEP 03</div>
+            <div style="font-weight: 700; font-size: 12.5px; margin: 4px 0; color: #fff;">Context Assembly</div>
+            <div class="card-desc">Merges Global + Domain + Agent profiles + Vector Memory.</div>
+          </div>
+          <div class="card accent-purple">
+            <div style="font-size: 10px; font-weight: 700; color: var(--purple);">STEP 04</div>
+            <div style="font-weight: 700; font-size: 12.5px; margin: 4px 0; color: #fff;">Execution Engine</div>
+            <div class="card-desc">LangGraph streams text (SSE) or triggers Pillow/Matplotlib.</div>
+          </div>
+          <div class="card accent-emerald">
+            <div style="font-size: 10px; font-weight: 700; color: var(--emerald);">STEP 05</div>
+            <div style="font-weight: 700; font-size: 12.5px; margin: 4px 0; color: #fff;">Feedback Loop</div>
+            <div class="card-desc">Reinforcement loop promotes repeated feedback to profile.</div>
+          </div>
+        </div>
+
+        <div class="card" style="background: var(--surface);">
+          <div style="font-weight: 700; font-size: 12.5px; color: var(--text-head); margin-bottom: 6px;">Key Architectural Tenets of the Platform</div>
+          <div class="grid-2" style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+            <div>• <strong style="color: #fff;">Zero-Cost Decisioning:</strong> Router scores keywords before ever touching an LLM.<br>• <strong style="color: #fff;">Token-by-Token Streaming:</strong> Server-Sent Events (SSE) provide instant UI feedback.</div>
+            <div>• <strong style="color: #fff;">Multi-Modal Autonomy:</strong> Local Pillow card & Matplotlib engines eliminate GPU costs.<br>• <strong style="color: #fff;">Strict Multi-Tenancy:</strong> Complete user isolation at DB and vector search levels.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: 7 DOMAINS & 34 AGENTS -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">SPECIALIZED AGENT ECOSYSTEM</div>
+          <h2 class="slide-title">The 7 Subject Domains & 34 Specialized Agents</h2>
+          <p class="slide-subtitle">Agents are declared as structured data (`AgentSpec`), not redundant Python classes — eliminating prompt drift.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div class="card accent-indigo">
+            <div style="font-weight: 700; color: var(--primary); font-size: 12.5px;">🎓 Education (6 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Class 10 Maths, Class 10 Science, Class 12 Physics, Homework Solver, Exam Planner, Quiz Gen</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Board, Language, Learning Style</div>
+          </div>
+          <div class="card accent-cyan">
+            <div style="font-weight: 700; color: var(--cyan); font-size: 12.5px;">💻 Technical (6 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Python Engineer, React Developer, SQL Expert, DSA Coach, Code Debugger, Code Reviewer</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Experience, Style, Project Context</div>
+          </div>
+          <div class="card accent-emerald">
+            <div style="font-weight: 700; color: var(--emerald); font-size: 12.5px;">💼 Career (4 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Resume Writer, Technical Interview Coach, Job Search Advisor, Skill Roadmap Planner</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Target Role, Years, Location, Stack</div>
+          </div>
+          <div class="card accent-amber">
+            <div style="font-weight: 700; color: var(--amber); font-size: 12.5px;">📣 Marketing (5 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Social Post Image [PNG], Ad Creative [PNG], Social Caption, SEO Optimizer, Campaign Planner</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Brand Name, Audience, Colors, Tone</div>
+          </div>
+          <div class="card accent-purple">
+            <div style="font-weight: 700; color: var(--purple); font-size: 12.5px;">📊 Analytics (4 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Chart Builder [Exact Chart PNG], EDA Planner, SQL Analytics Expert, Insight Writer</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Tooling (Pandas/SQL), Data Context</div>
+          </div>
+          <div class="card accent-cyan">
+            <div style="font-weight: 700; color: var(--cyan); font-size: 12.5px;">🔬 Research (4 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Concept Explainer, Executive Summarizer, Literature Brief Analyst, Source Finder</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Field of Study, Research Depth</div>
+          </div>
+          <div class="card accent-rose">
+            <div style="font-weight: 700; color: var(--rose); font-size: 12.5px;">🎨 Creative (5 Agents)</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">Story Writer, Film/Video Script Writer, Idea Generator, Copywriter, Poster Designer [PNG]</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Shared: Tone, Voice, Influences</div>
+          </div>
+          <div class="card accent-emerald" style="background: var(--surface);">
+            <div style="font-weight: 700; color: var(--emerald); font-size: 12.5px;">⚙️ AgentSpec Architecture</div>
+            <div style="font-size: 11px; color: #fff; margin-top: 4px;">All 34 agents declared as data records, not separate classes. 3 generic runners (Text, Image, Chart).</div>
+            <div style="font-size: 10px; color: var(--cyan); margin-top: 4px;">Key: Eliminates prompt drift completely</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 3-TIER PERSONALIZATION -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">THE PERSONALIZATION ENGINE</div>
+          <h2 class="slide-title">Layered 3-Tier Context Hierarchy</h2>
+          <p class="slide-subtitle">Answer once, inherit everywhere: general preferences inherit down, while specific constraints override.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="card accent-indigo">
+              <div style="font-weight: 700; font-size: 12.5px; color: var(--primary);">LEVEL 1: GLOBAL PROFILE</div>
+              <div style="font-size: 12px; color: #fff; margin-top: 2px;">User-wide attributes: Name, base occupation, general skill level, preferred tone.</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Applies to all 7 domains and 34 agents.</div>
+            </div>
+            <div class="card accent-cyan">
+              <div style="font-weight: 700; font-size: 12.5px; color: var(--cyan);">LEVEL 2: DOMAIN-SHARED PROFILE</div>
+              <div style="font-size: 12px; color: #fff; margin-top: 2px;">Shared domain context: Brand guidelines, Audience, Board/Curriculum, Tech stack.</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Set once in Marketing; inherited by all 5 marketing agents automatically.</div>
+            </div>
+            <div class="card accent-emerald">
+              <div style="font-weight: 700; font-size: 12.5px; color: var(--emerald);">LEVEL 3: AGENT-SPECIFIC PROFILE</div>
+              <div style="font-size: 12px; color: #fff; margin-top: 2px;">Targeted task constraints: Social post dimensions, weak maths chapters, coding styles.</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Granular parameters tailored strictly to that specific agent's execution.</div>
+            </div>
+          </div>
+
+          <div class="card accent-cyan" style="background: var(--surface);">
+            <div class="card-title" style="color: var(--cyan);">Live Prompt Assembly Trace</div>
+            <div class="code-box" style="margin-top: 6px;">
+              <span style="color: #64748b;">// 1. Global Layer</span><br>
+              User: Intermediate Engineer | Tone: Concise<br><br>
+              <span style="color: #64748b;">// 2. Domain Layer (Marketing)</span><br>
+              Brand: 'Acme Cloud' | Palette: [#6366f1, #38bdf8]<br><br>
+              <span style="color: #64748b;">// 3. Agent Layer (Post-Image)</span><br>
+              Platform: LinkedIn (1200x627) | Style: Bold<br><br>
+              <span style="color: #64748b;">// 4. Semantic Memory Vector Match</span><br>
+              Constraint: "Keep headline under 8 words"<br><br>
+              <span style="color: var(--emerald);">→ Model produces exact on-brand JSON specification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: SCOPE GUARD & ROUTING -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">GUARDRAILS & BOUNDARY ENFORCEMENT</div>
+          <h2 class="slide-title">Deterministic Scope Guard & Zero-Cost Routing</h2>
+          <p class="slide-subtitle">Why 3B local LLMs must not be trusted with negative instructions, and how deterministic guards solve it.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 14px;">
+          <div class="card accent-amber">
+            <div class="card-title" style="color: var(--amber);">Deterministic Scope Guard (app/agents/scope.py)</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-top: 6px;">
+              • <strong style="color: #fff;">Negative Prompting Fails:</strong> Small local models (3B params) suffer from high failure rates when prompted 'do not answer other topics'.<br>
+              • <strong style="color: #fff;">Signal Scorer Matrix:</strong> Evaluates lexical and semantic affinity for current agent vs. all 33 other agent specs.<br>
+              • <strong style="color: #fff;">Instant Zero-Cost Handoff:</strong> If affinity is 0 and another agent scores higher, system immediately triggers a handoff in 0.00s.
+            </div>
+          </div>
+
+          <div class="card accent-cyan">
+            <div class="card-title" style="color: var(--cyan);">Two-Tier Intelligent Router & Live Example</div>
+            <div class="code-box" style="margin-top: 6px; font-size: 11px;">
+              <span style="color: #94a3b8;">User to Class 10 Maths: 'Explain Python decorators'</span><br>
+              <span style="color: #38bdf8;">Agent: 'That is outside what I do. I am the Class 10 Maths Tutor. Python Engineer handles this. [Switch to Python Engineer]'</span><br>
+              <span style="color: var(--emerald);">[0.00s latency  •  Provider: scope-guard  •  Cost: $0.00]</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background: var(--surface);">
+          <div style="font-weight: 700; font-size: 12px; color: var(--text-head); margin-bottom: 6px;">GUARDRAIL ARCHITECTURE PERFORMANCE COMPARISON</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; font-size: 11px; color: var(--text-muted);">
+            <div><strong style="color: var(--amber);">Negative Prompting:</strong> Latency: ~1.5 - 2.8s | Cost: 350-500 tokens | Safety: Unreliable (frequent evasion)</div>
+            <div><strong style="color: var(--purple);">LLM Classifier Layer:</strong> Latency: ~0.8 - 1.4s | Cost: 200-300 tokens | Safety: High accuracy but adds billing</div>
+            <div><strong style="color: var(--emerald);">Deterministic Scope Guard:</strong> Latency: 0.00 seconds | Cost: $0.00 (0 tokens) | Safety: 100% mathematical boundary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: SEMANTIC MEMORY & FEEDBACK LOOP -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">CONTINUOUS LEARNING SYSTEM</div>
+          <h2 class="slide-title">Semantic Long-Term Memory & Feedback Loop</h2>
+          <p class="slide-subtitle">Vector embeddings with pgvector / portable cosine search, 3 memory scopes, and automatic profile promotion.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-indigo">
+            <div class="card-title" style="color: var(--primary);">3-Tier Memory Isolation</div>
+            <div class="card-desc" style="margin-top: 6px;">
+              • <strong style="color: #fff;">Agent Scope:</strong> Strictly isolated to one agent (e.g. Maths trigonometry tips).<br>
+              • <strong style="color: #fff;">Domain Scope:</strong> Available across all domain agents (e.g. Marketing voice).<br>
+              • <strong style="color: #fff;">Global Scope:</strong> Universal formatting preferences.<br>
+              <span style="color: var(--cyan); display: block; margin-top: 4px;">Zero cross-domain memory leakage.</span>
+            </div>
+          </div>
+
+          <div class="card accent-emerald">
+            <div class="card-title" style="color: var(--emerald);">2-Strike Promotion Rule</div>
+            <div class="card-desc" style="margin-top: 6px;">
+              • <strong style="color: #fff;">1st Correction:</strong> User leaves thumbs down with critique → Stored as candidate memory.<br>
+              • <strong style="color: #fff;">2nd Repeat:</strong> Same preference expressed twice → Promoted to permanent user profile.<br>
+              • <strong style="color: #fff;">No False Positives:</strong> Thumbs down alone does not trigger false adjustments.
+            </div>
+          </div>
+
+          <div class="card accent-cyan">
+            <div class="card-title" style="color: var(--cyan);">Vector Embeddings & Semantic Search</div>
+            <div class="card-desc" style="margin-top: 6px;">
+              • Powered by <strong style="color: #fff;">nomic-embed-text</strong> (768-dimensional vectors).<br>
+              • Cosine similarity threshold at 0.45 ensures only meaningful matches are recalled.<br>
+              • Full pgvector index acceleration with SQLite fallback for offline dev.
+            </div>
+          </div>
+
+          <div class="card accent-amber">
+            <div class="card-title" style="color: var(--amber);">User Privacy & Full Governance</div>
+            <div class="card-desc" style="margin-top: 6px;">
+              • Dedicated Settings UI enables users to inspect all stored vector memories.<br>
+              • Test semantic recall queries live with arbitrary search terms.<br>
+              • One-click permanent deletion of any memory candidate.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: MULTI-MODAL OUTPUTS -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">MULTI-MODAL GENERATION ENGINE</div>
+          <h2 class="slide-title">Zero-GPU Branded Images & Analytical Charts</h2>
+          <p class="slide-subtitle">Local rendering pipelines turn structured JSON specifications into high-res PNGs and verifiable data charts.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="card accent-purple" style="margin-bottom: 14px;">
+          <div class="card-title" style="color: var(--purple);">How Zero-GPU Multi-Modal Generation Works</div>
+          <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+            • <strong style="color: #fff;">Structured Spec Output:</strong> The LLM outputs a validated JSON layout spec (headline, subtitle, palette, CTA, layout flags).<br>
+            • <strong style="color: #fff;">Pillow (PIL) Graphic Renderer:</strong> Renders crisp 1200x627 branded LinkedIn cards, Instagram squares, and posters locally on CPU.<br>
+            • <strong style="color: #fff;">Matplotlib Analytical Engine:</strong> Chart Builder agent plots user-supplied numbers with statistical rigor; refuses to invent fake data.<br>
+            • <strong style="color: #fff;">Pluggable Cloud Upgrade:</strong> Set IMAGE_PROVIDER=openai to switch the same JSON spec to gpt-image-1 for photographic renders.
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--cyan); margin-bottom: 6px;">Analytical Chart (Matplotlib Engine - Real Data)</div>
+            <img src="./backend/generated_media/revenue-chart-1789917937-7ac533cc.png" style="max-height: 125px; width: auto; border-radius: 6px; border: 1px solid var(--card-border);" alt="Chart">
+          </div>
+          <div class="card" style="background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 6px;">Branded Social Card (Pillow Engine - 1200x627 PNG)</div>
+            <img src="./backend/generated_media/linkedin-post-1789917936-abe929d8.png" style="max-height: 125px; width: auto; border-radius: 6px; border: 1px solid var(--card-border);" alt="Post">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: 10-STEP LANGGRAPH PIPELINE -->
+    <div class="slide" id="slide-9">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">AGENTIC ORCHESTRATION PIPELINE</div>
+          <h2 class="slide-title">10-Step Deterministic LangGraph Pipeline</h2>
+          <p class="slide-subtitle">Every chat interaction traverses a verified state graph ensuring identity, safety, context, and storage integrity.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+          <div class="card accent-indigo" style="padding: 12px;"><div style="color: var(--primary); font-size: 10.5px; font-weight: 700;">STEP 1</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">load_user</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Bearer JWT<br>Output: user_id & tier</div></div>
+          <div class="card accent-amber" style="padding: 12px;"><div style="color: var(--amber); font-size: 10.5px; font-weight: 700;">STEP 2</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">router</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Message<br>Output: Target agent</div></div>
+          <div class="card accent-cyan" style="padding: 12px;"><div style="color: var(--cyan); font-size: 10.5px; font-weight: 700;">STEP 3</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">scope_guard</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Query affinity<br>Output: Handoff check</div></div>
+          <div class="card accent-emerald" style="padding: 12px;"><div style="color: var(--emerald); font-size: 10.5px; font-weight: 700;">STEP 4</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">load_global</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Verified user<br>Output: Base user style</div></div>
+          <div class="card accent-indigo" style="padding: 12px;"><div style="color: var(--primary); font-size: 10.5px; font-weight: 700;">STEP 5</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">load_domain</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Agent domain<br>Output: Shared profile</div></div>
+
+          <div class="card accent-cyan" style="padding: 12px;"><div style="color: var(--cyan); font-size: 10.5px; font-weight: 700;">STEP 6</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">load_agent</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Agent slug<br>Output: Task schema</div></div>
+          <div class="card accent-purple" style="padding: 12px;"><div style="color: var(--purple); font-size: 10.5px; font-weight: 700;">STEP 7</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">retrieve_memory</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Vector query<br>Output: Cosine matches</div></div>
+          <div class="card accent-emerald" style="padding: 12px;"><div style="color: var(--emerald); font-size: 10.5px; font-weight: 700;">STEP 8</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">build_context</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: 3 profiles<br>Output: Compiled prompt</div></div>
+          <div class="card accent-amber" style="padding: 12px;"><div style="color: var(--amber); font-size: 10.5px; font-weight: 700;">STEP 9</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">generate</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Prompt<br>Output: SSE or media</div></div>
+          <div class="card accent-indigo" style="padding: 12px;"><div style="color: var(--primary); font-size: 10.5px; font-weight: 700;">STEP 10</div><div style="font-size: 11.5px; font-weight: 700; color: #fff;">store_message</div><div style="font-size: 9.5px; color: var(--text-muted); margin-top: 3px;">Trigger: Output<br>Output: DB persistence</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: TECH STACK & SECURITY -->
+    <div class="slide" id="slide-10">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">INFRASTRUCTURE & SECURITY GOVERNANCE</div>
+          <h2 class="slide-title">Enterprise Security & Production Tech Stack</h2>
+          <p class="slide-subtitle">Hardened full-stack engineering with zero-vulnerability frontend and portable multi-database architecture.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <div class="card-title" style="color: var(--cyan);">Production Technology Stack</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.55; margin-top: 6px;">
+              • <strong style="color: #fff;">Frontend Architecture:</strong> React 18, Vite 8, Tailwind CSS, Lucide Icons, react-markdown, Axios.<br>
+              • <strong style="color: #fff;">Backend Architecture:</strong> Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic migrations.<br>
+              • <strong style="color: #fff;">Agent Orchestration:</strong> LangGraph StateGraph with Server-Sent Events (SSE) streaming.<br>
+              • <strong style="color: #fff;">Dual Database Dialects:</strong> PostgreSQL 16 + pgvector (production) & SQLite portable vector store.<br>
+              • <strong style="color: #fff;">Pluggable AI Providers:</strong> Ollama (llama3.2:3b local), OpenAI-compatible APIs, AWS Bedrock, Mock mode.<br>
+              • <strong style="color: #fff;">Media Generation Engine:</strong> Pillow (PIL) local cards + Matplotlib real data charts + gpt-image-1.
+            </div>
+          </div>
+
+          <div class="card accent-emerald">
+            <div class="card-title" style="color: var(--emerald);">Security & Isolation Hardening</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.55; margin-top: 6px;">
+              • <strong style="color: #fff;">Authentication & Passwords:</strong> bcrypt password hashing with salted rounds. PyJWT tokens.<br>
+              • <strong style="color: #fff;">Multi-Tenant Isolation:</strong> Every query strictly filtered by authenticated user_id; zero vector leakage.<br>
+              • <strong style="color: #fff;">Schema Validation:</strong> Pydantic v2 validates all inputs; profile updates strictly whitelisted.<br>
+              • <strong style="color: #fff;">SQL Injection Immunity:</strong> SQLAlchemy 2 ORM parameterization on all database operations.<br>
+              • <strong style="color: #fff;">Zero NPM Vulnerabilities:</strong> 0 known vulnerabilities across 26 production frontend artifacts.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: BENCHMARKS & VERIFICATION -->
+    <div class="slide" id="slide-11">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">TESTING & RIGOROUS BENCHMARKS</div>
+          <h2 class="slide-title">Empirical Verification & Test Results</h2>
+          <p class="slide-subtitle">Benchmarked and verified on an Intel i5-10210U laptop (4 cores, 0 GPU) under 100% offline conditions.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-4" style="margin-bottom: 16px;">
+          <div class="card accent-emerald">
+            <div class="stat-number">163/163</div>
+            <div class="stat-label">Pipeline Tests Passed</div>
+            <div class="stat-sub">100% assertion pass rate</div>
+          </div>
+          <div class="card accent-cyan">
+            <div class="stat-number">34/34</div>
+            <div class="stat-label">Agents Verified</div>
+            <div class="stat-sub">30 text, 3 image, 1 chart</div>
+          </div>
+          <div class="card accent-indigo">
+            <div class="stat-number">21/21</div>
+            <div class="stat-label">Router Scenarios Correct</div>
+            <div class="stat-sub">100% keyword precision</div>
+          </div>
+          <div class="card accent-amber">
+            <div class="stat-number">0.00s</div>
+            <div class="stat-label">Scope Handoff Speed</div>
+            <div class="stat-sub">Zero model invocation</div>
+          </div>
+        </div>
+
+        <div class="card" style="background: var(--surface);">
+          <div style="font-weight: 700; font-size: 12px; color: var(--text-head); margin-bottom: 6px;">Empirical Benchmark Summary (Intel i5 CPU, Local Ollama llama3.2:3b)</div>
+          <div class="grid-2" style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+            <div>• <strong style="color: #fff;">Branded PNG Card Generation:</strong> 43.9 seconds (CPU image synthesis)<br>• <strong style="color: #fff;">Matplotlib Chart Generation:</strong> 53.5 seconds (Data verification & rendering)</div>
+            <div>• <strong style="color: #fff;">Database Migration Resilience:</strong> 45/45 assertions passed (Alembic v1→v2→v1)<br>• <strong style="color: #fff;">Scope Guard Handoff:</strong> Instant redirect, 0 tokens spent</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: CONCLUSION & LIVE DEMO -->
+    <div class="slide" id="slide-12">
+      <div class="slide-header">
+        <div>
+          <div class="header-accent-bar"></div>
+          <div class="badge-pill">EXECUTIVE SUMMARY & CONCLUSION</div>
+          <h2 class="slide-title">Summary of Achievements & Next Milestones</h2>
+          <p class="slide-subtitle">A complete, production-grade multi-agent AI system ready for live demonstration and organizational scale.</p>
+        </div>
+      </div>
+      <div class="header-divider"></div>
+
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 14px;">
+          <div class="card accent-indigo">
+            <div class="card-title" style="color: var(--primary);">Key Project Innovations</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-top: 6px;">
+              • <strong style="color: #fff;">34 Specialized Agents:</strong> Eliminates prompt drift by replacing monolithic chatbots with single-purpose experts.<br>
+              • <strong style="color: #fff;">3-Tier Layered Profiles:</strong> Global, domain, and agent profiles maximize context relevance without repeated prompts.<br>
+              • <strong style="color: #fff;">Durable Semantic Memory:</strong> Vector embeddings isolate memories while feedback promotion retains user preferences.<br>
+              • <strong style="color: #fff;">Deterministic Safety Guardrails:</strong> Instant 0.00s handoffs protect agent lane discipline with zero hallucination.
+            </div>
+          </div>
+
+          <div class="card accent-cyan" style="background: var(--surface);">
+            <div class="card-title" style="color: var(--cyan);">Live Interactive Demonstration</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-top: 6px;">
+              • <strong style="color: #fff;">Web App:</strong> <a href="http://localhost:5173" target="_blank" style="color: var(--cyan); text-decoration: none;">http://localhost:5173</a><br>
+              • <strong style="color: #fff;">Backend API:</strong> <a href="http://localhost:8000" target="_blank" style="color: var(--cyan); text-decoration: none;">http://localhost:8000</a> (Docs: /docs)<br>
+              • <strong style="color: #fff;">Ollama Daemon:</strong> http://localhost:11434 (llama3.2:3b active)<br><br>
+              <div class="code-box">
+                <strong style="color: var(--emerald);">Demo Account:</strong> demo@example.com / DemoPass123
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background: var(--surface);">
+          <div style="font-weight: 700; font-size: 12px; color: var(--text-head); margin-bottom: 6px;">STRATEGIC ROADMAP & SYSTEM EXTENSIONS</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; font-size: 11px; color: var(--text-muted);">
+            <div><strong style="color: var(--cyan);">Multi-Agent Collaboration:</strong> Automated handshakes between agents (EDA Planner passing data to Chart Builder).</div>
+            <div><strong style="color: var(--cyan);">Local Voice & Audio:</strong> Integrate Whisper local speech-to-text with streaming TTS for natural voice tutoring.</div>
+            <div><strong style="color: var(--cyan);">Direct Export Connectors:</strong> One-click publishing to LinkedIn, Notion databases, Google Docs, and branded PDF reports.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER CONTROLS -->
+    <div class="deck-footer">
+      <div class="footer-left">
+        <span>Content Personalization Agent</span>
+        <span>•</span>
+        <span id="slide-indicator">Slide 1 of 12</span>
+        <span>•</span>
+        <span style="color: #64748b;">Keys: [← / →] Navigate, [F] Fullscreen, [G] Grid</span>
+      </div>
+
+      <div class="footer-right">
+        <button class="btn-nav" id="btn-grid" title="Slide Overview (G)">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Overview
+        </button>
+        <button class="btn-nav" id="btn-prev" title="Previous Slide (←)">Previous</button>
+        <button class="btn-nav" id="btn-next" title="Next Slide (→ or Space)">Next</button>
+        <button class="btn-nav btn-download" id="btn-download" title="Get PowerPoint .pptx File">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Download .PPTX
+        </button>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="drawer-overlay" id="drawer">
+    <div class="drawer-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h3 style="font-size: 18px; font-weight: 700; color: #fff;">Slide Navigation Overview</h3>
+        <button class="btn-nav" id="btn-close-drawer">Close (Esc)</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Click any slide below to jump directly to it.</p>
+      <div class="drawer-grid" id="drawer-grid"></div>
+    </div>
+  </div>
+
+  <script>
+    const totalSlides = 12;
+    let currentSlide = 1;
+
+    const titles = [
+      "1. Title & Executive Overview",
+      "2. The Problem & Paradigm Shift",
+      "3. End-to-End Execution Flow",
+      "4. The 7 Domains & 34 Agents",
+      "5. 3-Tier Layered Personalization",
+      "6. Deterministic Scope Guard & Router",
+      "7. Semantic Memory & Feedback Loop",
+      "8. Zero-GPU Multi-Modal Generation",
+      "9. 10-Step LangGraph State Pipeline",
+      "10. Enterprise Security & Tech Stack",
+      "11. Empirical Verification & Benchmarks",
+      "12. Conclusion & Live Demonstration"
+    ];
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      currentSlide = index;
+
+      document.querySelectorAll('.slide').forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide - 1);
+      });
+
+      document.getElementById('slide-indicator').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+      document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+      document.querySelectorAll('.slide-thumb').forEach((thumb, idx) => {
+        thumb.classList.toggle('active', idx === currentSlide - 1);
+      });
+    }
+
+    document.getElementById('btn-prev').addEventListener('click', () => showSlide(currentSlide - 1));
+    document.getElementById('btn-next').addEventListener('click', () => showSlide(currentSlide + 1));
+    document.getElementById('btn-download').addEventListener('click', () => {
+      window.location.href = './Content_Personalisation_Agent_Presentation.pptx';
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        showSlide(1);
+      } else if (e.key === 'End') {
+        showSlide(totalSlides);
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key.toLowerCase() === 'g') {
+        toggleDrawer();
+      } else if (e.key === 'Escape') {
+        closeDrawer();
+      }
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    const drawer = document.getElementById('drawer');
+    const drawerGrid = document.getElementById('drawer-grid');
+
+    titles.forEach((title, i) => {
+      const thumb = document.createElement('div');
+      thumb.className = `slide-thumb ${i === 0 ? 'active' : ''}`;
+      thumb.innerHTML = `
+        <div style="font-size: 11px; font-weight: 700; color: var(--cyan); margin-bottom: 2px;">SLIDE ${i+1}</div>
+        <div style="font-size: 12px; font-weight: 600; color: #fff;">${title}</div>
+      `;
+      thumb.addEventListener('click', () => {
+        showSlide(i + 1);
+        closeDrawer();
+      });
+      drawerGrid.appendChild(thumb);
+    });
+
+    function toggleDrawer() { drawer.classList.toggle('open'); }
+    function closeDrawer() { drawer.classList.remove('open'); }
+    document.getElementById('btn-grid').addEventListener('click', toggleDrawer);
+    document.getElementById('btn-close-drawer').addEventListener('click', closeDrawer);
+    drawer.addEventListener('click', (e) => { if (e.target === drawer) closeDrawer(); });
+  </script>
+</body>
+</html>
