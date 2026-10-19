@@ -1,0 +1,45 @@
+# ---- Web framework ----
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+python-multipart==0.0.32
+
+# ---- Validation / settings ----
+pydantic==2.13.5
+pydantic-settings==2.15.0
+email-validator==2.3.0
+
+# ---- Database ----
+SQLAlchemy==2.0.54
+alembic==1.20.0
+psycopg[binary]==3.3.6
+pgvector==0.5.0
+
+# ---- Auth / security ----
+PyJWT==2.14.0
+bcrypt==5.0.0
+
+# ---- AI / orchestration ----
+langgraph==1.2.11
+langchain-core==1.6.3
+langchain-aws==1.7.8
+boto3==1.43.98
+
+# ---- Media rendering ----
+# Pillow draws the post images and ad creatives; matplotlib is both the chart
+# backend and the source of the bundled DejaVu font the card renderer uses, so
+# it is required even though no agent currently returns a chart.
+pillow==12.3.0
+matplotlib==3.11.2
+
+# ---- Attachment extraction ----
+# Chat attachments are text-extracted server-side so the model receives prose
+# rather than raw bytes. pypdf pulls the text layer out of a PDF; python-docx
+# reads paragraphs and tables out of a .docx. Neither does OCR, so a scanned
+# PDF has no text layer to find and the upload endpoint says so rather than
+# returning an empty attachment.
+pypdf==6.1.3
+python-docx==1.2.0
+
+# ---- Utils ----
+numpy==2.5.3
+httpx==0.28.1

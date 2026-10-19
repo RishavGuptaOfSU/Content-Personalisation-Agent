@@ -1,0 +1,377 @@
+# This file is TOML. Kept as data, not code, so cases can be added without
+# touching the harness. Read with the stdlib `tomllib` — no new dependency.
+#
+# Each [[case]] runs one request against one agent and applies the
+# deterministic assertions declared on it. Qualitative judgement is NOT done
+# here: the harness writes the real output to a report and rubric.md says how
+# to score it by hand.
+#
+# Fields
+#   id                 unique, stable (results are compared across runs by id)
+#   agent              agent key, or omit together with `route_to` for a
+#                      routing-only case with no explicit selection
+#   category           ordinary | complex | ambiguous | brand | audience |
+#                      platform | profile | memory | attachment |
+#                      out_of_scope | grounding | clarification | routing
+#   request            the user message
+#   route_to           expected routed agent when `agent` is omitted
+#   expect_output_kind text | image
+#   expect_in_scope    false asserts a handoff; handoff_to names the target
+#   media_size         [w, h] the rendered file must match
+#   require_spec_from_model  true = the image spec must NOT be the degraded
+#                      request-text fallback
+#   profile_must_reach strings that must appear in the assembled profile
+#                      summaries (proves personalization arrived)
+#   memory_must_apply  substring of a memory that must be retrieved
+#   must_contain_any / must_not_contain   substring checks on the reply
+#   max_hashtags / min_chars / max_chars
+#   must_ask_question  true = the reply must ask rather than invent
+#   rubric             which rubric dimensions a human should score
+
+# ===========================================================================
+# marketing.social-copy
+# ===========================================================================
+
+[[case]]
+id = "copy-ordinary-linkedin"
+agent = "marketing.social-copy"
+category = "ordinary"
+request = "Write a LinkedIn post about how much cloud spend sits idle"
+expect_output_kind = "text"
+expect_in_scope = true
+profile_must_reach = ["Acme Cloud", "LinkedIn"]
+min_chars = 150
+max_hashtags = 5
+rubric = ["hook", "audience_fit", "brand_tone", "usefulness", "no_filler"]
+
+[[case]]
+id = "copy-complex-thread"
+agent = "marketing.social-copy"
+category = "complex"
+request = """
+Write a 3-post X thread explaining why we rebuilt our cost allocation engine.
+Post 1 is the problem, post 2 the rebuild, post 3 the result. Keep each under
+280 characters and number them.
+"""
+expect_output_kind = "text"
+must_contain_any = ["1", "2", "3"]
+rubric = ["instruction_following", "hook", "brand_tone"]
+
+[[case]]
+id = "copy-exact-constraint-hashtags"
+requires_real_model = true
+agent = "marketing.social-copy"
+category = "ordinary"
+request = "LinkedIn post about our new pricing. Use at most 2 hashtags."
+expect_output_kind = "text"
+max_hashtags = 2
+rubric = ["instruction_following"]
+
+[[case]]
+id = "copy-no-hashtags-platform"
+requires_real_model = true
+agent = "marketing.social-copy"
+category = "platform"
+request = "Write the Facebook post copy for our webinar on Thursday"
+expect_output_kind = "text"
+max_hashtags = 2
+rubric = ["platform_fit", "usefulness"]
+
+[[case]]
+id = "copy-grounding-no-metrics"
+agent = "marketing.social-copy"
+category = "grounding"
+request = "Write a LinkedIn post about how much money we save customers"
+expect_output_kind = "text"
+# No figure was supplied, so no figure may be asserted as fact. Measured: the
+# model invents one ("up to $100K", "by up to 50%") despite being told not to,
+# so the grounding guard has to catch it.
+no_unsupported_figures = true
+must_not_contain = ["testimonial"]
+rubric = ["no_fabrication", "brand_tone"]
+
+[[case]]
+id = "copy-memory-applied"
+agent = "marketing.social-copy"
+category = "memory"
+request = "Another LinkedIn post, this time about staging environments left running"
+expect_output_kind = "text"
+memory_must_apply = "under 100 words"
+rubric = ["instruction_following", "usefulness"]
+
+[[case]]
+id = "copy-out-of-scope-image"
+agent = "marketing.social-copy"
+category = "out_of_scope"
+request = "Create the post image graphic for our launch announcement"
+expect_in_scope = false
+handoff_to = "marketing.post-image"
+rubric = []
+
+[[case]]
+id = "copy-ad-copy-routing"
+category = "routing"
+request = "Write ad copy for our free trial"
+route_to = "marketing.social-copy"
+rubric = []
+
+# ===========================================================================
+# marketing.post-image
+# ===========================================================================
+
+[[case]]
+id = "image-ordinary-linkedin"
+agent = "marketing.post-image"
+category = "ordinary"
+request = "Create a LinkedIn post image about cutting cloud costs with automation"
+expect_output_kind = "image"
+media_size = [1200, 627]
+require_spec_from_model = true
+profile_must_reach = ["Acme Cloud", "Bold type"]
+max_chars = 400
+rubric = ["headline_relevance", "headline_brevity", "legibility", "brand_fit", "alt_text"]
+
+[[case]]
+id = "image-complex-detail"
+agent = "marketing.post-image"
+category = "complex"
+request = """
+A post image announcing our Series A. The headline should lead on what it means
+for customers, not on the amount. Add a short supporting line and a call to
+action that points at the changelog.
+"""
+expect_output_kind = "image"
+require_spec_from_model = true
+rubric = ["headline_relevance", "instruction_following", "legibility"]
+
+[[case]]
+id = "image-ambiguous"
+agent = "marketing.post-image"
+category = "ambiguous"
+request = "Make us a graphic"
+expect_output_kind = "image"
+# Deliberately underspecified: measures what the agent does with nothing to go
+# on. A degraded spec here is the expected failure, not a bug — the baseline
+# records it so the improvement is visible.
+rubric = ["headline_relevance", "graceful_degradation"]
+
+[[case]]
+id = "image-brand-colours"
+agent = "marketing.post-image"
+category = "brand"
+request = "Instagram square graphic announcing our new usage-based pricing"
+expect_output_kind = "image"
+require_spec_from_model = true
+rubric = ["brand_fit", "legibility", "headline_brevity"]
+
+[[case]]
+id = "image-out-of-scope-caption"
+agent = "marketing.post-image"
+category = "out_of_scope"
+request = "Write me the LinkedIn caption to go with our launch post"
+expect_in_scope = false
+handoff_to = "marketing.social-copy"
+rubric = []
+
+[[case]]
+id = "image-out-of-scope-campaign"
+agent = "marketing.post-image"
+category = "out_of_scope"
+request = "Plan a six week campaign across five channels with a budget split"
+expect_in_scope = false
+handoff_to = "marketing.campaign-planner"
+rubric = []
+
+# ===========================================================================
+# marketing.ad-creative
+# ===========================================================================
+
+[[case]]
+id = "ad-ordinary-trial"
+agent = "marketing.ad-creative"
+category = "ordinary"
+request = "Ad creative promoting our free trial for engineering teams"
+expect_output_kind = "image"
+media_size = [1080, 1080]
+require_spec_from_model = true
+profile_must_reach = ["Free trial signups"]
+# The baseline invented "Save up to 80% of your time". No figure was supplied,
+# so no figure may appear anywhere in the rendered copy.
+no_unsupported_figures = true
+rubric = ["value_proposition", "cta_quality", "objective_alignment", "legibility", "alt_text"]
+
+[[case]]
+id = "ad-supplied-offer"
+agent = "marketing.ad-creative"
+category = "ordinary"
+request = "Ad image promoting 30% off annual plans until 31 March"
+expect_output_kind = "image"
+require_spec_from_model = true
+rubric = ["value_proposition", "cta_quality", "offer_fidelity"]
+
+[[case]]
+id = "ad-grounding-no-invented-offer"
+agent = "marketing.ad-creative"
+category = "grounding"
+request = "Make an ad creative that will get engineering managers to sign up"
+expect_output_kind = "image"
+# No discount or statistic was given, so none may appear on the graphic.
+no_unsupported_figures = true
+must_not_contain = ["guaranteed"]
+rubric = ["no_fabrication", "value_proposition"]
+
+[[case]]
+id = "ad-out-of-scope-copy"
+agent = "marketing.ad-creative"
+category = "out_of_scope"
+request = "Write the body copy and three headline variants for this ad"
+expect_in_scope = false
+handoff_to = "marketing.social-copy"
+rubric = []
+
+# ===========================================================================
+# marketing.seo-optimizer
+# ===========================================================================
+
+[[case]]
+id = "seo-ordinary-landing"
+requires_real_model = true
+agent = "marketing.seo-optimizer"
+category = "ordinary"
+request = "Optimise our cloud cost automation landing page for search"
+expect_output_kind = "text"
+must_contain_any = ["Title", "title"]
+profile_must_reach = ["Landing page"]
+min_chars = 250
+rubric = ["intent_reading", "keyword_relevance", "structure", "actionability"]
+
+[[case]]
+id = "seo-grounding-no-volumes"
+requires_real_model = true
+agent = "marketing.seo-optimizer"
+category = "grounding"
+request = "Give me the search volume and keyword difficulty for 'cloud cost tool'"
+expect_output_kind = "text"
+# The app has no live SEO data; it must say so instead of inventing figures.
+must_contain_any = ["do not have", "don't have", "no live", "cannot", "can't", "verify"]
+rubric = ["no_fabrication", "honesty_about_limits"]
+
+[[case]]
+id = "seo-attachment"
+agent = "marketing.seo-optimizer"
+category = "attachment"
+request = "Optimise this page copy for search"
+attachment_name = "landing.md"
+attachment_text = """
+# Acme Cloud
+Find idle cloud capacity automatically. Trusted by engineering teams.
+We connect to your account and report what stopped earning its keep.
+"""
+expect_output_kind = "text"
+must_contain_any = ["idle", "capacity", "cloud"]
+rubric = ["uses_source_material", "keyword_relevance", "structure"]
+
+[[case]]
+id = "seo-content-type-aware"
+agent = "marketing.seo-optimizer"
+category = "profile"
+# The request deliberately names no content type, so the configured profile
+# (content_type = "Landing page", region = "India, English") is the only thing
+# that can shape the answer. An earlier version of this case asked for "a blog
+# post", which contradicted the profile: the agent correctly followed the
+# request, and the judge then scored correct behaviour 1/5 for profile_awareness.
+request = "SEO for our Kubernetes rightsizing feature"
+expect_output_kind = "text"
+profile_must_reach = ["Landing page"]
+rubric = ["intent_reading", "structure", "profile_awareness"]
+
+[[case]]
+# The companion to the case above: here the request *does* name a content type,
+# and it conflicts with the configured profile. Following the request is the
+# correct behaviour, and rubric.md says so explicitly.
+id = "seo-request-overrides-profile"
+agent = "marketing.seo-optimizer"
+category = "profile"
+request = "SEO for a blog post about rightsizing Kubernetes requests"
+expect_output_kind = "text"
+rubric = ["intent_reading", "structure", "profile_awareness"]
+
+[[case]]
+id = "seo-out-of-scope"
+agent = "marketing.seo-optimizer"
+category = "out_of_scope"
+request = "Design an ad creative for the free trial"
+expect_in_scope = false
+handoff_to = "marketing.ad-creative"
+rubric = []
+
+# ===========================================================================
+# marketing.campaign-planner
+# ===========================================================================
+
+[[case]]
+id = "campaign-ordinary-launch"
+requires_real_model = true
+agent = "marketing.campaign-planner"
+category = "ordinary"
+request = "Plan a two week launch campaign for our cost automation feature"
+expect_output_kind = "text"
+must_contain_any = ["Objective", "objective"]
+profile_must_reach = ["Lead generation"]
+min_chars = 300
+rubric = ["objective_clarity", "channel_choice", "timeline_realism", "kpi_quality", "risks"]
+
+[[case]]
+id = "campaign-budget-supplied"
+agent = "marketing.campaign-planner"
+category = "complex"
+request = """
+Plan a 6 week campaign to get 100 free trial signups. Budget is $400 total
+across the whole six weeks. We have LinkedIn, email and our blog.
+"""
+expect_output_kind = "text"
+# The baseline "failure" here was a bad assertion: the model allocated
+# $200/$100/$100 correctly but never restated the $400 total. Assert the
+# property that actually matters instead of a literal string.
+budget_allocations_sum_to = 400
+no_unsupported_figures = true
+rubric = ["budget_handling", "objective_clarity", "kpi_quality", "timeline_realism"]
+
+[[case]]
+id = "campaign-clarification"
+agent = "marketing.campaign-planner"
+category = "clarification"
+request = "Plan a campaign"
+expect_output_kind = "text"
+# Nothing to plan against: it should ask, or state its assumptions explicitly.
+# Measured: it does neither, and invents a budget. The guard catches the budget;
+# the clarification behaviour remains an open limitation on this model.
+must_contain_any = ["?", "assum"]
+no_unsupported_figures = true
+rubric = ["clarification_quality", "no_fabrication"]
+
+[[case]]
+id = "campaign-grounding-no-invented-budget"
+agent = "marketing.campaign-planner"
+category = "grounding"
+request = "Plan a one month awareness campaign on LinkedIn and email"
+expect_output_kind = "text"
+# No budget was supplied at all, so any currency figure is invented.
+no_unsupported_figures = true
+rubric = ["no_fabrication", "budget_handling", "channel_choice"]
+
+[[case]]
+id = "campaign-out-of-scope-write"
+agent = "marketing.campaign-planner"
+category = "out_of_scope"
+request = "Write the Instagram caption for day one of the campaign"
+expect_in_scope = false
+handoff_to = "marketing.social-copy"
+rubric = []
+
+[[case]]
+id = "campaign-routing"
+category = "routing"
+request = "Build me a content calendar for next month"
+route_to = "marketing.campaign-planner"
+rubric = []
