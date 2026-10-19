@@ -1,0 +1,1108 @@
+{
+  "report": {
+    "file": "20261019T045220Z-BAKEOFF2-gemma4-31b-openai.json",
+    "label": "BAKEOFF2-gemma4-31b",
+    "generated_at": "20261019T045220Z",
+    "llm_model": "gemma4:31b",
+    "llm_provider": "openai",
+    "llm_temperature": 0.4
+  },
+  "judge": {
+    "model": "gpt-oss:120b",
+    "provider": "openai",
+    "temperature": 0.0,
+    "repeat": 1,
+    "prompt_version": "2",
+    "self_evaluation": false,
+    "rubric_file": "rubric.md",
+    "rubric_dimensions": 32,
+    "brand_source": "scripts/marketing_eval/harness.py",
+    "calls": 22,
+    "retries": 0,
+    "input_tokens": 21819,
+    "output_tokens": 12406,
+    "cost_usd": null,
+    "elapsed_seconds": 58.6,
+    "failures": []
+  },
+  "summary": {
+    "scored_cases": 22,
+    "scored_dimensions": 61,
+    "unjudged_dimensions": 6,
+    "failed_cases": [],
+    "mean": 4.15,
+    "distribution": {
+      "1": 0,
+      "2": 2,
+      "3": 19,
+      "4": 8,
+      "5": 32
+    },
+    "by_dimension": {
+      "actionability": 5.0,
+      "alt_text": 3.0,
+      "audience_fit": 4.0,
+      "brand_tone": 5.0,
+      "budget_handling": 4.5,
+      "channel_choice": 3.5,
+      "clarification_quality": 4.0,
+      "cta_quality": 5.0,
+      "graceful_degradation": 4.0,
+      "headline_brevity": 5.0,
+      "headline_relevance": 4.33,
+      "honesty_about_limits": 5.0,
+      "hook": 3.0,
+      "instruction_following": 3.0,
+      "intent_reading": 5.0,
+      "keyword_relevance": 5.0,
+      "kpi_quality": 5.0,
+      "no_fabrication": 4.0,
+      "no_filler": 3.0,
+      "objective_alignment": 5.0,
+      "objective_clarity": 4.5,
+      "offer_fidelity": 3.0,
+      "platform_fit": 3.0,
+      "profile_awareness": 3.0,
+      "risks": 3.0,
+      "structure": 5.0,
+      "timeline_realism": 3.5,
+      "usefulness": 4.33,
+      "uses_source_material": 3.0,
+      "value_proposition": 4.33
+    },
+    "by_agent": {
+      "marketing.ad-creative": 4.11,
+      "marketing.campaign-planner": 4.0,
+      "marketing.post-image": 4.12,
+      "marketing.seo-optimizer": 4.6,
+      "marketing.social-copy": 3.87
+    },
+    "by_group": {
+      "Ad creative": 4.43,
+      "Campaign planner": 4.09,
+      "Copy and text agents": 3.83,
+      "Image agents": 4.12,
+      "SEO": 4.67
+    },
+    "weakest_dimensions": [
+      "hook",
+      "no_filler",
+      "instruction_following",
+      "platform_fit",
+      "alt_text"
+    ]
+  },
+  "cases": [
+    {
+      "id": "copy-ordinary-linkedin",
+      "agent": "marketing.social-copy",
+      "category": "ordinary",
+      "output_chars": 622,
+      "latency_ms": 2293,
+      "unjudged": {},
+      "runs": [
+        {
+          "hook": {
+            "score": 3,
+            "why": "Starts with a clear statement, not a standout standalone hook"
+          },
+          "audience_fit": {
+            "score": 4,
+            "why": "Directly references engineers and over\u2011provisioning, relevant to developers/founders"
+          },
+          "brand_tone": {
+            "score": 5,
+            "why": "Professional tone, no banned terms, matches brand voice"
+          },
+          "usefulness": {
+            "score": 5,
+            "why": "Provides immediate CTA to check utilization and suggests solution"
+          },
+          "no_filler": {
+            "score": 3,
+            "why": "Contains some tagline filler like \u201cStop paying for silence.\u201d"
+          }
+        }
+      ],
+      "dimensions": {
+        "hook": {
+          "score": 3,
+          "why": "Starts with a clear statement, not a standout standalone hook",
+          "runs": [
+            3
+          ]
+        },
+        "audience_fit": {
+          "score": 4,
+          "why": "Directly references engineers and over\u2011provisioning, relevant to developers/founders",
+          "runs": [
+            4
+          ]
+        },
+        "brand_tone": {
+          "score": 5,
+          "why": "Professional tone, no banned terms, matches brand voice",
+          "runs": [
+            5
+          ]
+        },
+        "usefulness": {
+          "score": 5,
+          "why": "Provides immediate CTA to check utilization and suggests solution",
+          "runs": [
+            5
+          ]
+        },
+        "no_filler": {
+          "score": 3,
+          "why": "Contains some tagline filler like \u201cStop paying for silence.\u201d",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "copy-complex-thread",
+      "agent": "marketing.social-copy",
+      "category": "complex",
+      "output_chars": 595,
+      "latency_ms": 1398,
+      "unjudged": {},
+      "runs": [
+        {
+          "instruction_following": {
+            "score": 3,
+            "why": "Misses required hashtags per config"
+          },
+          "hook": {
+            "score": 3,
+            "why": "Clear problem statement but not a standout hook"
+          },
+          "brand_tone": {
+            "score": 5,
+            "why": "Professional language, no banned terms"
+          }
+        }
+      ],
+      "dimensions": {
+        "instruction_following": {
+          "score": 3,
+          "why": "Misses required hashtags per config",
+          "runs": [
+            3
+          ]
+        },
+        "hook": {
+          "score": 3,
+          "why": "Clear problem statement but not a standout hook",
+          "runs": [
+            3
+          ]
+        },
+        "brand_tone": {
+          "score": 5,
+          "why": "Professional language, no banned terms",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "copy-exact-constraint-hashtags",
+      "agent": "marketing.social-copy",
+      "category": "ordinary",
+      "output_chars": 399,
+      "latency_ms": 1176,
+      "unjudged": {},
+      "runs": [
+        {
+          "instruction_following": {
+            "score": 3,
+            "why": "Exceeds the short (50\u2011120) length requirement despite correct hashtags and platform"
+          }
+        }
+      ],
+      "dimensions": {
+        "instruction_following": {
+          "score": 3,
+          "why": "Exceeds the short (50\u2011120) length requirement despite correct hashtags and platform",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "copy-no-hashtags-platform",
+      "agent": "marketing.social-copy",
+      "category": "platform",
+      "output_chars": 496,
+      "latency_ms": 1173,
+      "unjudged": {},
+      "runs": [
+        {
+          "platform_fit": {
+            "score": 3,
+            "why": "Includes meta 'Why this works' section, not typical Facebook formatting."
+          },
+          "usefulness": {
+            "score": 5,
+            "why": "Provides clear webinar details and immediate registration link."
+          }
+        }
+      ],
+      "dimensions": {
+        "platform_fit": {
+          "score": 3,
+          "why": "Includes meta 'Why this works' section, not typical Facebook formatting.",
+          "runs": [
+            3
+          ]
+        },
+        "usefulness": {
+          "score": 5,
+          "why": "Provides clear webinar details and immediate registration link.",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "copy-grounding-no-metrics",
+      "agent": "marketing.social-copy",
+      "category": "grounding",
+      "output_chars": 157,
+      "latency_ms": 906,
+      "unjudged": {},
+      "runs": [
+        {
+          "no_fabrication": {
+            "score": 5,
+            "why": "Makes no invented claims; only states internal handling of the request."
+          },
+          "brand_tone": {
+            "score": 5,
+            "why": "Uses professional language, no clickbait or emojis, matching brand tone."
+          }
+        }
+      ],
+      "dimensions": {
+        "no_fabrication": {
+          "score": 5,
+          "why": "Makes no invented claims; only states internal handling of the request.",
+          "runs": [
+            5
+          ]
+        },
+        "brand_tone": {
+          "score": 5,
+          "why": "Uses professional language, no clickbait or emojis, matching brand tone.",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "copy-memory-applied",
+      "agent": "marketing.social-copy",
+      "category": "memory",
+      "output_chars": 525,
+      "latency_ms": 2305,
+      "unjudged": {},
+      "runs": [
+        {
+          "instruction_following": {
+            "score": 3,
+            "why": "Adds unnecessary \u201cWhy this works\u201d section and likely exceeds short length, though platform, tone, and hashtags are correct."
+          },
+          "usefulness": {
+            "score": 3,
+            "why": "Offers the idea of automating cleanup but provides no concrete steps for immediate implementation."
+          }
+        }
+      ],
+      "dimensions": {
+        "instruction_following": {
+          "score": 3,
+          "why": "Adds unnecessary \u201cWhy this works\u201d section and likely exceeds short length, though platform, tone, and hashtags are correct.",
+          "runs": [
+            3
+          ]
+        },
+        "usefulness": {
+          "score": 3,
+          "why": "Offers the idea of automating cleanup but provides no concrete steps for immediate implementation.",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "image-ordinary-linkedin",
+      "agent": "marketing.post-image",
+      "category": "ordinary",
+      "output_chars": 138,
+      "latency_ms": 1358,
+      "unjudged": {
+        "legibility": "needs the rendered image; see rubric.md and probe_renderer.py",
+        "brand_fit": "needs the rendered image; see rubric.md and probe_renderer.py"
+      },
+      "runs": [
+        {
+          "headline_relevance": {
+            "score": 5,
+            "why": "Directly addresses cutting cloud costs via automation"
+          },
+          "headline_brevity": {
+            "score": 5,
+            "why": "Very short, readable at a glance"
+          },
+          "alt_text": {
+            "score": 3,
+            "why": "Describes image but lacks full detail for screen readers"
+          }
+        }
+      ],
+      "dimensions": {
+        "headline_relevance": {
+          "score": 5,
+          "why": "Directly addresses cutting cloud costs via automation",
+          "runs": [
+            5
+          ]
+        },
+        "headline_brevity": {
+          "score": 5,
+          "why": "Very short, readable at a glance",
+          "runs": [
+            5
+          ]
+        },
+        "alt_text": {
+          "score": 3,
+          "why": "Describes image but lacks full detail for screen readers",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "image-complex-detail",
+      "agent": "marketing.post-image",
+      "category": "complex",
+      "output_chars": 149,
+      "latency_ms": 1193,
+      "unjudged": {
+        "legibility": "needs the rendered image; see rubric.md and probe_renderer.py"
+      },
+      "runs": [
+        {
+          "headline_relevance": {
+            "score": 5,
+            "why": "Headline directly states the customer benefit (faster feature delivery for developers)."
+          },
+          "instruction_following": {
+            "score": 3,
+            "why": "Omits required logo text 'ACME CLOUD' despite brand config."
+          }
+        }
+      ],
+      "dimensions": {
+        "headline_relevance": {
+          "score": 5,
+          "why": "Headline directly states the customer benefit (faster feature delivery for developers).",
+          "runs": [
+            5
+          ]
+        },
+        "instruction_following": {
+          "score": 3,
+          "why": "Omits required logo text 'ACME CLOUD' despite brand config.",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "image-ambiguous",
+      "agent": "marketing.post-image",
+      "category": "ambiguous",
+      "output_chars": 156,
+      "latency_ms": 1973,
+      "unjudged": {},
+      "runs": [
+        {
+          "headline_relevance": {
+            "score": 3,
+            "why": "Headline fits a generic graphic theme but isn\u2019t tied to any specific request detail"
+          },
+          "graceful_degradation": {
+            "score": 4,
+            "why": "Provides a concrete, brand\u2011aligned spec; only tweak needed to add required logo text"
+          }
+        }
+      ],
+      "dimensions": {
+        "headline_relevance": {
+          "score": 3,
+          "why": "Headline fits a generic graphic theme but isn\u2019t tied to any specific request detail",
+          "runs": [
+            3
+          ]
+        },
+        "graceful_degradation": {
+          "score": 4,
+          "why": "Provides a concrete, brand\u2011aligned spec; only tweak needed to add required logo text",
+          "runs": [
+            4
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "image-brand-colours",
+      "agent": "marketing.post-image",
+      "category": "brand",
+      "output_chars": 124,
+      "latency_ms": 1178,
+      "unjudged": {
+        "brand_fit": "needs the rendered image; see rubric.md and probe_renderer.py",
+        "legibility": "needs the rendered image; see rubric.md and probe_renderer.py"
+      },
+      "runs": [
+        {
+          "headline_brevity": {
+            "score": 5,
+            "why": "Headline \"pay only for what you use\" is concise and fits a single line, readable at a glance."
+          }
+        }
+      ],
+      "dimensions": {
+        "headline_brevity": {
+          "score": 5,
+          "why": "Headline \"pay only for what you use\" is concise and fits a single line, readable at a glance.",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "ad-ordinary-trial",
+      "agent": "marketing.ad-creative",
+      "category": "ordinary",
+      "output_chars": 122,
+      "latency_ms": 2309,
+      "unjudged": {
+        "legibility": "needs the rendered image; see rubric.md and probe_renderer.py"
+      },
+      "runs": [
+        {
+          "value_proposition": {
+            "score": 5,
+            "why": "Headline 'Ship code faster' directly states the outcome engineering teams desire."
+          },
+          "cta_quality": {
+            "score": 5,
+            "why": "'Start free trial' is a clear imperative verb matching signup objective."
+          },
+          "objective_alignment": {
+            "score": 5,
+            "why": "Ad focuses on free trial with CTA, directly supporting configured objective."
+          },
+          "alt_text": {
+            "score": 3,
+            "why": "Describes colors and promise but omits CTA, only a basic image description."
+          }
+        }
+      ],
+      "dimensions": {
+        "value_proposition": {
+          "score": 5,
+          "why": "Headline 'Ship code faster' directly states the outcome engineering teams desire.",
+          "runs": [
+            5
+          ]
+        },
+        "cta_quality": {
+          "score": 5,
+          "why": "'Start free trial' is a clear imperative verb matching signup objective.",
+          "runs": [
+            5
+          ]
+        },
+        "objective_alignment": {
+          "score": 5,
+          "why": "Ad focuses on free trial with CTA, directly supporting configured objective.",
+          "runs": [
+            5
+          ]
+        },
+        "alt_text": {
+          "score": 3,
+          "why": "Describes colors and promise but omits CTA, only a basic image description.",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "ad-supplied-offer",
+      "agent": "marketing.ad-creative",
+      "category": "ordinary",
+      "output_chars": 145,
+      "latency_ms": 2173,
+      "unjudged": {},
+      "runs": [
+        {
+          "value_proposition": {
+            "score": 3,
+            "why": "Headline offers a benefit ('Scale your infrastructure faster') but doesn't articulate the buyer's ultimate outcome."
+          },
+          "cta_quality": {
+            "score": 5,
+            "why": "CTA 'Start free trial' is a clear imperative directly matching the free\u2011trial signup objective."
+          },
+          "offer_fidelity": {
+            "score": 3,
+            "why": "Mentions 30% off annual plans but omits the required 'until 31 March' deadline."
+          }
+        }
+      ],
+      "dimensions": {
+        "value_proposition": {
+          "score": 3,
+          "why": "Headline offers a benefit ('Scale your infrastructure faster') but doesn't articulate the buyer's ultimate outcome.",
+          "runs": [
+            3
+          ]
+        },
+        "cta_quality": {
+          "score": 5,
+          "why": "CTA 'Start free trial' is a clear imperative directly matching the free\u2011trial signup objective.",
+          "runs": [
+            5
+          ]
+        },
+        "offer_fidelity": {
+          "score": 3,
+          "why": "Mentions 30% off annual plans but omits the required 'until 31 March' deadline.",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "ad-grounding-no-invented-offer",
+      "agent": "marketing.ad-creative",
+      "category": "grounding",
+      "output_chars": 122,
+      "latency_ms": 1295,
+      "unjudged": {},
+      "runs": [
+        {
+          "no_fabrication": {
+            "score": 3,
+            "why": "Makes generic benefit claim, no invented figures or false statements."
+          },
+          "value_proposition": {
+            "score": 5,
+            "why": "Headline directly states the outcome engineering managers want: faster deployments."
+          }
+        }
+      ],
+      "dimensions": {
+        "no_fabrication": {
+          "score": 3,
+          "why": "Makes generic benefit claim, no invented figures or false statements.",
+          "runs": [
+            3
+          ]
+        },
+        "value_proposition": {
+          "score": 5,
+          "why": "Headline directly states the outcome engineering managers want: faster deployments.",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "seo-ordinary-landing",
+      "agent": "marketing.seo-optimizer",
+      "category": "ordinary",
+      "output_chars": 1238,
+      "latency_ms": 1637,
+      "unjudged": {},
+      "runs": [
+        {
+          "intent_reading": {
+            "score": 5,
+            "why": "Explicitly names search intent and structures page to satisfy it"
+          },
+          "keyword_relevance": {
+            "score": 5,
+            "why": "Keywords are highly relevant and rankable for the topic"
+          },
+          "structure": {
+            "score": 5,
+            "why": "Clear H2 outline that follows logical intent flow"
+          },
+          "actionability": {
+            "score": 5,
+            "why": "All recommendations are ready to implement directly"
+          }
+        }
+      ],
+      "dimensions": {
+        "intent_reading": {
+          "score": 5,
+          "why": "Explicitly names search intent and structures page to satisfy it",
+          "runs": [
+            5
+          ]
+        },
+        "keyword_relevance": {
+          "score": 5,
+          "why": "Keywords are highly relevant and rankable for the topic",
+          "runs": [
+            5
+          ]
+        },
+        "structure": {
+          "score": 5,
+          "why": "Clear H2 outline that follows logical intent flow",
+          "runs": [
+            5
+          ]
+        },
+        "actionability": {
+          "score": 5,
+          "why": "All recommendations are ready to implement directly",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "seo-grounding-no-volumes",
+      "agent": "marketing.seo-optimizer",
+      "category": "grounding",
+      "output_chars": 201,
+      "latency_ms": 2786,
+      "unjudged": {},
+      "runs": [
+        {
+          "no_fabrication": {
+            "score": 5,
+            "why": "Makes no invented figures; only states inability to provide data."
+          },
+          "honesty_about_limits": {
+            "score": 5,
+            "why": "Clearly says it cannot know the numbers and suggests external tools for verification."
+          }
+        }
+      ],
+      "dimensions": {
+        "no_fabrication": {
+          "score": 5,
+          "why": "Makes no invented figures; only states inability to provide data.",
+          "runs": [
+            5
+          ]
+        },
+        "honesty_about_limits": {
+          "score": 5,
+          "why": "Clearly says it cannot know the numbers and suggests external tools for verification.",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "seo-attachment",
+      "agent": "marketing.seo-optimizer",
+      "category": "attachment",
+      "output_chars": 1201,
+      "latency_ms": 2867,
+      "unjudged": {},
+      "runs": [
+        {
+          "uses_source_material": {
+            "score": 3,
+            "why": "References source loosely without direct excerpts"
+          },
+          "keyword_relevance": {
+            "score": 5,
+            "why": "Keywords are highly relevant and rankable for cloud cost optimization"
+          },
+          "structure": {
+            "score": 5,
+            "why": "Clear, logical H2 outline covering offer, proof, process, benefit, CTA"
+          }
+        }
+      ],
+      "dimensions": {
+        "uses_source_material": {
+          "score": 3,
+          "why": "References source loosely without direct excerpts",
+          "runs": [
+            3
+          ]
+        },
+        "keyword_relevance": {
+          "score": 5,
+          "why": "Keywords are highly relevant and rankable for cloud cost optimization",
+          "runs": [
+            5
+          ]
+        },
+        "structure": {
+          "score": 5,
+          "why": "Clear, logical H2 outline covering offer, proof, process, benefit, CTA",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "seo-content-type-aware",
+      "agent": "marketing.seo-optimizer",
+      "category": "profile",
+      "output_chars": 1218,
+      "latency_ms": 1964,
+      "unjudged": {},
+      "runs": [
+        {
+          "intent_reading": {
+            "score": 5,
+            "why": "Names SEO intent and supplies full keyword, title, meta, and outline shaping the page."
+          },
+          "structure": {
+            "score": 5,
+            "why": "Clear H2 outline covers key topics in logical, intent\u2011driven order."
+          },
+          "profile_awareness": {
+            "score": 4,
+            "why": "Uses landing\u2011page format but omits India\u2011specific language or regional cues."
+          }
+        }
+      ],
+      "dimensions": {
+        "intent_reading": {
+          "score": 5,
+          "why": "Names SEO intent and supplies full keyword, title, meta, and outline shaping the page.",
+          "runs": [
+            5
+          ]
+        },
+        "structure": {
+          "score": 5,
+          "why": "Clear H2 outline covers key topics in logical, intent\u2011driven order.",
+          "runs": [
+            5
+          ]
+        },
+        "profile_awareness": {
+          "score": 4,
+          "why": "Uses landing\u2011page format but omits India\u2011specific language or regional cues.",
+          "runs": [
+            4
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "seo-request-overrides-profile",
+      "agent": "marketing.seo-optimizer",
+      "category": "profile",
+      "output_chars": 955,
+      "latency_ms": 1680,
+      "unjudged": {},
+      "runs": [
+        {
+          "intent_reading": {
+            "score": 5,
+            "why": "Explicitly identifies informational intent and outlines content that fully addresses rightsizing Kubernetes requests."
+          },
+          "structure": {
+            "score": 5,
+            "why": "Provides a logical, complete H2 outline that sequentially covers the topic."
+          },
+          "profile_awareness": {
+            "score": 2,
+            "why": "Delivers blog\u2011post SEO, ignoring the configured landing\u2011page content type and regional focus."
+          }
+        }
+      ],
+      "dimensions": {
+        "intent_reading": {
+          "score": 5,
+          "why": "Explicitly identifies informational intent and outlines content that fully addresses rightsizing Kubernetes requests.",
+          "runs": [
+            5
+          ]
+        },
+        "structure": {
+          "score": 5,
+          "why": "Provides a logical, complete H2 outline that sequentially covers the topic.",
+          "runs": [
+            5
+          ]
+        },
+        "profile_awareness": {
+          "score": 2,
+          "why": "Delivers blog\u2011post SEO, ignoring the configured landing\u2011page content type and regional focus.",
+          "runs": [
+            2
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "campaign-ordinary-launch",
+      "agent": "marketing.campaign-planner",
+      "category": "ordinary",
+      "output_chars": 1716,
+      "latency_ms": 3946,
+      "unjudged": {},
+      "runs": [
+        {
+          "objective_clarity": {
+            "score": 4,
+            "why": "Clear measurable target (50 sign\u2011ups) within 14\u2011day window"
+          },
+          "channel_choice": {
+            "score": 3,
+            "why": "Uses configured channels but lacks justification for each"
+          },
+          "timeline_realism": {
+            "score": 3,
+            "why": "Plausible 14\u2011day schedule without detailed dependencies"
+          },
+          "kpi_quality": {
+            "score": 5,
+            "why": "Primary metric plus guardrail (unsubscribes <1%)"
+          },
+          "risks": {
+            "score": 3,
+            "why": "Risks are generic, not deep enough to sink the plan"
+          }
+        }
+      ],
+      "dimensions": {
+        "objective_clarity": {
+          "score": 4,
+          "why": "Clear measurable target (50 sign\u2011ups) within 14\u2011day window",
+          "runs": [
+            4
+          ]
+        },
+        "channel_choice": {
+          "score": 3,
+          "why": "Uses configured channels but lacks justification for each",
+          "runs": [
+            3
+          ]
+        },
+        "timeline_realism": {
+          "score": 3,
+          "why": "Plausible 14\u2011day schedule without detailed dependencies",
+          "runs": [
+            3
+          ]
+        },
+        "kpi_quality": {
+          "score": 5,
+          "why": "Primary metric plus guardrail (unsubscribes <1%)",
+          "runs": [
+            5
+          ]
+        },
+        "risks": {
+          "score": 3,
+          "why": "Risks are generic, not deep enough to sink the plan",
+          "runs": [
+            3
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "campaign-budget-supplied",
+      "agent": "marketing.campaign-planner",
+      "category": "complex",
+      "output_chars": 1705,
+      "latency_ms": 2571,
+      "unjudged": {},
+      "runs": [
+        {
+          "budget_handling": {
+            "score": 5,
+            "why": "Allocates exact $400 across channels and labels suggestions"
+          },
+          "objective_clarity": {
+            "score": 5,
+            "why": "One-sentence, measurable, time\u2011bound goal"
+          },
+          "kpi_quality": {
+            "score": 5,
+            "why": "Primary KPI plus guardrail metric provided"
+          },
+          "timeline_realism": {
+            "score": 4,
+            "why": "Plausible weekly plan, but lacks explicit dependency sequencing"
+          }
+        }
+      ],
+      "dimensions": {
+        "budget_handling": {
+          "score": 5,
+          "why": "Allocates exact $400 across channels and labels suggestions",
+          "runs": [
+            5
+          ]
+        },
+        "objective_clarity": {
+          "score": 5,
+          "why": "One-sentence, measurable, time\u2011bound goal",
+          "runs": [
+            5
+          ]
+        },
+        "kpi_quality": {
+          "score": 5,
+          "why": "Primary KPI plus guardrail metric provided",
+          "runs": [
+            5
+          ]
+        },
+        "timeline_realism": {
+          "score": 4,
+          "why": "Plausible weekly plan, but lacks explicit dependency sequencing",
+          "runs": [
+            4
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "campaign-clarification",
+      "agent": "marketing.campaign-planner",
+      "category": "clarification",
+      "output_chars": 166,
+      "latency_ms": 858,
+      "unjudged": {},
+      "runs": [
+        {
+          "clarification_quality": {
+            "score": 4,
+            "why": "asks two clear, specific questions but not the single optimal unblocker"
+          },
+          "no_fabrication": {
+            "score": 5,
+            "why": "makes no factual claims, only requests information"
+          }
+        }
+      ],
+      "dimensions": {
+        "clarification_quality": {
+          "score": 4,
+          "why": "asks two clear, specific questions but not the single optimal unblocker",
+          "runs": [
+            4
+          ]
+        },
+        "no_fabrication": {
+          "score": 5,
+          "why": "makes no factual claims, only requests information",
+          "runs": [
+            5
+          ]
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "campaign-grounding-no-invented-budget",
+      "agent": "marketing.campaign-planner",
+      "category": "grounding",
+      "output_chars": 1604,
+      "latency_ms": 2017,
+      "unjudged": {},
+      "runs": [
+        {
+          "no_fabrication": {
+            "score": 2,
+            "why": "Includes invented figure (1%) despite warning"
+          },
+          "budget_handling": {
+            "score": 4,
+            "why": "References and stays within given <$500 budget"
+          },
+          "channel_choice": {
+            "score": 4,
+            "why": "Uses requested LinkedIn and Email, aligned with config"
+          }
+        }
+      ],
+      "dimensions": {
+        "no_fabrication": {
+          "score": 2,
+          "why": "Includes invented figure (1%) despite warning",
+          "runs": [
+            2
+          ]
+        },
+        "budget_handling": {
+          "score": 4,
+          "why": "References and stays within given <$500 budget",
+          "runs": [
+            4
+          ]
+        },
+        "channel_choice": {
+          "score": 4,
+          "why": "Uses requested LinkedIn and Email, aligned with config",
+          "runs": [
+            4
+          ]
+        }
+      },
+      "error": null
+    }
+  ]
+}

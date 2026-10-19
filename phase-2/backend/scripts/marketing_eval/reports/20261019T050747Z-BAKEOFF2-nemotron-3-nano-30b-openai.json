@@ -1,0 +1,1341 @@
+{
+  "label": "BAKEOFF2-nemotron-3-nano-30b",
+  "generated_at": "20261019T050747Z",
+  "elapsed_seconds": 563.0,
+  "configuration": {
+    "llm_provider": "openai",
+    "llm_model": "nemotron-3-nano:30b",
+    "llm_temperature": 0.4,
+    "llm_max_tokens": 700,
+    "embedding_provider": "ollama",
+    "embedding_dim": 768,
+    "memory_min_similarity": 0.45,
+    "image_provider": "local",
+    "router_use_llm": true,
+    "scope_own_max_score": 1.5,
+    "scope_other_min_score": 4.0
+  },
+  "totals": {
+    "cases": 30,
+    "assertions": 82,
+    "passed": 80,
+    "failed": 2,
+    "errors": 9,
+    "skipped": 0,
+    "degraded_image_specs": 0
+  },
+  "cases": [
+    {
+      "id": "copy-ordinary-linkedin",
+      "agent": "marketing.social-copy",
+      "category": "ordinary",
+      "request": "Write a LinkedIn post about how much cloud spend sits idle",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 10400,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "judged in scope",
+          "passed": true,
+          "detail": "Within this agent's scope."
+        },
+        {
+          "label": "profile reached the prompt: 'Acme Cloud'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "profile reached the prompt: 'LinkedIn'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "at most 5 hashtags",
+          "passed": true,
+          "detail": "3"
+        },
+        {
+          "label": "at least 150 chars",
+          "passed": true,
+          "detail": "550"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.social-copy",
+        "domain": "marketing",
+        "agent_name": "Social Caption Writer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "Within this agent's scope.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "hook",
+        "audience_fit",
+        "brand_tone",
+        "usefulness",
+        "no_filler"
+      ],
+      "output": "Your cloud bill is running, but your engineers aren't.  \nOver-provisioned clusters linger long after projects end.  \nForgotten dev environments keep charging in the background.  \nAuto-scaling that never scales down is a silent budget drain.  \nFree your team to build, not manage idle resources.  \n#CloudOptimization #SaaS #DevOps  \n\n**Why this works**  \n- Frames idle spend as an attention problem, keeping the focus on engineering time rather than price.  \n- The CTA is specific and actionable, giving readers a clear next step without pushing cost."
+    },
+    {
+      "id": "copy-complex-thread",
+      "agent": "marketing.social-copy",
+      "category": "complex",
+      "request": "Write a 3-post X thread explaining why we rebuilt our cost allocation engine.\nPost 1 is the problem, post 2 the rebuild, post 3 the result. Keep each under\n280 characters and number them.",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "instruction_following",
+        "hook",
+        "brand_tone"
+      ],
+      "output": ""
+    },
+    {
+      "id": "copy-exact-constraint-hashtags",
+      "agent": "marketing.social-copy",
+      "category": "ordinary",
+      "request": "LinkedIn post about our new pricing. Use at most 2 hashtags.",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 10150,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "at most 2 hashtags",
+          "passed": true,
+          "detail": "0"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.social-copy",
+        "domain": "marketing",
+        "agent_name": "Social Caption Writer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "Within this agent's scope.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "instruction_following"
+      ],
+      "output": "We've reengineered Acme Cloud's pricing to remove the friction that"
+    },
+    {
+      "id": "copy-no-hashtags-platform",
+      "agent": "marketing.social-copy",
+      "category": "platform",
+      "request": "Write the Facebook post copy for our webinar on Thursday",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "platform_fit",
+        "usefulness"
+      ],
+      "output": ""
+    },
+    {
+      "id": "copy-grounding-no-metrics",
+      "agent": "marketing.social-copy",
+      "category": "grounding",
+      "request": "Write a LinkedIn post about how much money we save customers",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 24364,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "does not contain 'testimonial'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "no figures the user did not supply",
+          "passed": true,
+          "detail": "none"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.social-copy",
+        "domain": "marketing",
+        "agent_name": "Social Caption Writer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "Within this agent's scope.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "no_fabrication",
+        "brand_tone"
+      ],
+      "output": "Your engineers deserve to build, not wrestle with infrastructure.  \nAcme Cloud cuts deployment cycles by hours each week, not months.  \nFree your team to ship features customers actually want.  \nRequest a demo and see the difference in days.  \n#AcmeCloud #SaaS #DevTools  \n\n**Why this works:** Positions the value around engineering time saved, matching Acme Cloud's brand angle. The CTA is direct and low-friction."
+    },
+    {
+      "id": "copy-memory-applied",
+      "agent": "marketing.social-copy",
+      "category": "memory",
+      "request": "Another LinkedIn post, this time about staging environments left running",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "instruction_following",
+        "usefulness"
+      ],
+      "output": ""
+    },
+    {
+      "id": "copy-out-of-scope-image",
+      "agent": "marketing.social-copy",
+      "category": "out_of_scope",
+      "request": "Create the post image graphic for our launch announcement",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 26,
+      "assertions": [
+        {
+          "label": "judged out of scope",
+          "passed": true,
+          "detail": "This looks like a Social Post Image Generator request, not Social Capt"
+        },
+        {
+          "label": "handed off to post-image",
+          "passed": true,
+          "detail": "marketing.post-image"
+        },
+        {
+          "label": "no model call was spent",
+          "passed": true,
+          "detail": "scope-guard"
+        },
+        {
+          "label": "the reply names the right agent",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.social-copy",
+        "domain": "marketing",
+        "agent_name": "Social Caption Writer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": false,
+        "reason": "This looks like a Social Post Image Generator request, not Social Caption Writer work.",
+        "suggested_agent_key": "marketing.post-image",
+        "suggested_agent_name": "Social Post Image Generator"
+      },
+      "media": [],
+      "rubric": [],
+      "output": "That is outside what I do. I am the **Social Caption Writer** \u2014 Writing post captions, social copy and ad copy.\n\n**Social Post Image Generator** handles this: Producing a social post image: headline, supporting line and brand styling, rendered at the right size for the platform.\n\nSwitch to it and send your message again, or ask me something in my area:\n\n- Write a LinkedIn caption about AI automation\n- Instagram caption for our product launch\n- A 3-post X thread on why we rebuilt our API"
+    },
+    {
+      "id": "copy-ad-copy-routing",
+      "agent": "",
+      "category": "routing",
+      "request": "Write ad copy for our free trial",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 0,
+      "assertions": [
+        {
+          "label": "routes to social-copy",
+          "passed": true,
+          "detail": "marketing.social-copy (keyword_router, 0.80)"
+        },
+        {
+          "label": "stayed inside the marketing domain",
+          "passed": true,
+          "detail": "marketing.social-copy"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.social-copy",
+        "source": "keyword_router",
+        "confidence": 0.8,
+        "reason": "Matched: ad copy, write ad copy"
+      },
+      "scope": {},
+      "media": [],
+      "rubric": [],
+      "output": ""
+    },
+    {
+      "id": "image-ordinary-linkedin",
+      "agent": "marketing.post-image",
+      "category": "ordinary",
+      "request": "Create a LinkedIn post image about cutting cloud costs with automation",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 21311,
+      "assertions": [
+        {
+          "label": "output_kind == image",
+          "passed": true,
+          "detail": "image"
+        },
+        {
+          "label": "rendered at 1200x627",
+          "passed": true,
+          "detail": "1200x627"
+        },
+        {
+          "label": "a file was rendered",
+          "passed": true,
+          "detail": "1 media items"
+        },
+        {
+          "label": "the file is a real PNG on disk",
+          "passed": true,
+          "detail": "post-image-1792386050-2077177f.png"
+        },
+        {
+          "label": "alt text present",
+          "passed": true,
+          "detail": "Automated cloud cost reduction visualization"
+        },
+        {
+          "label": "the image spec came from the model, not the fallback",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "profile reached the prompt: 'Acme Cloud'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "profile reached the prompt: 'Bold type'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "at most 400 chars",
+          "passed": true,
+          "detail": "112"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.post-image",
+        "domain": "marketing",
+        "agent_name": "Social Post Image Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "Within this agent's scope.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [
+        {
+          "filename": "post-image-1792386050-2077177f.png",
+          "width": 1200,
+          "height": 627,
+          "bytes": 49890,
+          "alt_text": "Automated cloud cost reduction visualization",
+          "spec": {
+            "headline": "Cut cloud costs with automation",
+            "subline": "Reduce waste and optimize spending automatically",
+            "badge": "",
+            "cta": "",
+            "palette": "brand",
+            "layout": "centered",
+            "style": "Bold type"
+          }
+        }
+      ],
+      "rubric": [
+        "headline_relevance",
+        "headline_brevity",
+        "legibility",
+        "brand_fit",
+        "alt_text"
+      ],
+      "output": "**Cut cloud costs with automation**\nReduce waste and optimize spending automatically\n\n*1200\u00d7627 \u00b7 brand palette*"
+    },
+    {
+      "id": "image-complex-detail",
+      "agent": "marketing.post-image",
+      "category": "complex",
+      "request": "A post image announcing our Series A. The headline should lead on what it means\nfor customers, not on the amount. Add a short supporting line and a call to\naction that points at the changelog.",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 27576,
+      "assertions": [
+        {
+          "label": "output_kind == image",
+          "passed": true,
+          "detail": "image"
+        },
+        {
+          "label": "a file was rendered",
+          "passed": true,
+          "detail": "1 media items"
+        },
+        {
+          "label": "the file is a real PNG on disk",
+          "passed": true,
+          "detail": "post-image-1792386078-a651c0b7.png"
+        },
+        {
+          "label": "alt text present",
+          "passed": true,
+          "detail": "Acme Cloud announcement with customer-focused headline and c"
+        },
+        {
+          "label": "the image spec came from the model, not the fallback",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.post-image",
+        "domain": "marketing",
+        "agent_name": "Social Post Image Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [
+        {
+          "filename": "post-image-1792386078-a651c0b7.png",
+          "width": 1200,
+          "height": 627,
+          "bytes": 58579,
+          "alt_text": "Acme Cloud announcement with customer-focused headline and changelog call to action",
+          "spec": {
+            "headline": "tools built for your next breakthrough",
+            "subline": "we're crafting updates that help you ship faster and grow smarter",
+            "badge": "",
+            "cta": "view our changelog",
+            "palette": "brand",
+            "layout": "centered",
+            "style": "Bold type"
+          }
+        }
+      ],
+      "rubric": [
+        "headline_relevance",
+        "instruction_following",
+        "legibility"
+      ],
+      "output": "**tools built for your next breakthrough**\nwe're crafting updates that help you ship faster and grow smarter\n\n*1200\u00d7627 \u00b7 CTA: view our changelog \u00b7 brand palette*"
+    },
+    {
+      "id": "image-ambiguous",
+      "agent": "marketing.post-image",
+      "category": "ambiguous",
+      "request": "Make us a graphic",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 24354,
+      "assertions": [
+        {
+          "label": "output_kind == image",
+          "passed": true,
+          "detail": "image"
+        },
+        {
+          "label": "a file was rendered",
+          "passed": true,
+          "detail": "1 media items"
+        },
+        {
+          "label": "the file is a real PNG on disk",
+          "passed": true,
+          "detail": "post-image-1792386102-a8f1d65e.png"
+        },
+        {
+          "label": "alt text present",
+          "passed": true,
+          "detail": "Depicts Acme Cloud branding for LinkedIn post"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.post-image",
+        "domain": "marketing",
+        "agent_name": "Social Post Image Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [
+        {
+          "filename": "post-image-1792386102-a8f1d65e.png",
+          "width": 1200,
+          "height": 627,
+          "bytes": 41900,
+          "alt_text": "Depicts Acme Cloud branding for LinkedIn post",
+          "spec": {
+            "headline": "Secure cloud infrastructure",
+            "subline": "",
+            "badge": "",
+            "cta": "",
+            "palette": "brand",
+            "layout": "centered",
+            "style": "Bold type"
+          }
+        }
+      ],
+      "rubric": [
+        "headline_relevance",
+        "graceful_degradation"
+      ],
+      "output": "**Secure cloud infrastructure**\n\n*1200\u00d7627 \u00b7 brand palette*"
+    },
+    {
+      "id": "image-brand-colours",
+      "agent": "marketing.post-image",
+      "category": "brand",
+      "request": "Instagram square graphic announcing our new usage-based pricing",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "brand_fit",
+        "legibility",
+        "headline_brevity"
+      ],
+      "output": ""
+    },
+    {
+      "id": "image-out-of-scope-caption",
+      "agent": "marketing.post-image",
+      "category": "out_of_scope",
+      "request": "Write me the LinkedIn caption to go with our launch post",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 17,
+      "assertions": [
+        {
+          "label": "judged out of scope",
+          "passed": true,
+          "detail": "This looks like a Social Caption Writer request, not Social Post Image"
+        },
+        {
+          "label": "handed off to social-copy",
+          "passed": true,
+          "detail": "marketing.social-copy"
+        },
+        {
+          "label": "no model call was spent",
+          "passed": true,
+          "detail": "scope-guard"
+        },
+        {
+          "label": "the reply names the right agent",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.post-image",
+        "domain": "marketing",
+        "agent_name": "Social Post Image Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": false,
+        "reason": "This looks like a Social Caption Writer request, not Social Post Image Generator work.",
+        "suggested_agent_key": "marketing.social-copy",
+        "suggested_agent_name": "Social Caption Writer"
+      },
+      "media": [],
+      "rubric": [],
+      "output": "That is outside what I do. I am the **Social Post Image Generator** \u2014 Producing a social post image: headline, supporting line and brand styling, rendered at the right size for the platform.\n\n**Social Caption Writer** handles this: Writing post captions, social copy and ad copy.\n\nSwitch to it and send your message again, or ask me something in my area:\n\n- Create a LinkedIn post image about AI automation\n- Instagram graphic announcing our new pricing\n- A post image for our webinar next Thursday"
+    },
+    {
+      "id": "image-out-of-scope-campaign",
+      "agent": "marketing.post-image",
+      "category": "out_of_scope",
+      "request": "Plan a six week campaign across five channels with a budget split",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 10,
+      "assertions": [
+        {
+          "label": "judged out of scope",
+          "passed": true,
+          "detail": "This looks like a Campaign Planner request, not Social Post Image Gene"
+        },
+        {
+          "label": "handed off to campaign-planner",
+          "passed": true,
+          "detail": "marketing.campaign-planner"
+        },
+        {
+          "label": "no model call was spent",
+          "passed": true,
+          "detail": "scope-guard"
+        },
+        {
+          "label": "the reply names the right agent",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.post-image",
+        "domain": "marketing",
+        "agent_name": "Social Post Image Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": false,
+        "reason": "This looks like a Campaign Planner request, not Social Post Image Generator work.",
+        "suggested_agent_key": "marketing.campaign-planner",
+        "suggested_agent_name": "Campaign Planner"
+      },
+      "media": [],
+      "rubric": [],
+      "output": "That is outside what I do. I am the **Social Post Image Generator** \u2014 Producing a social post image: headline, supporting line and brand styling, rendered at the right size for the platform.\n\n**Campaign Planner** handles this: Planning marketing campaigns: objectives, channels, calendar, KPIs.\n\nSwitch to it and send your message again, or ask me something in my area:\n\n- Create a LinkedIn post image about AI automation\n- Instagram graphic announcing our new pricing\n- A post image for our webinar next Thursday"
+    },
+    {
+      "id": "ad-ordinary-trial",
+      "agent": "marketing.ad-creative",
+      "category": "ordinary",
+      "request": "Ad creative promoting our free trial for engineering teams",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 27292,
+      "assertions": [
+        {
+          "label": "output_kind == image",
+          "passed": true,
+          "detail": "image"
+        },
+        {
+          "label": "rendered at 1080x1080",
+          "passed": true,
+          "detail": "1080x1080"
+        },
+        {
+          "label": "a file was rendered",
+          "passed": true,
+          "detail": "1 media items"
+        },
+        {
+          "label": "the file is a real PNG on disk",
+          "passed": true,
+          "detail": "ad-creative-1792386177-322bd483.png"
+        },
+        {
+          "label": "alt text present",
+          "passed": true,
+          "detail": "Acme Cloud free trial ad with professional dark background"
+        },
+        {
+          "label": "the image spec came from the model, not the fallback",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "profile reached the prompt: 'Free trial signups'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "no figures the user did not supply",
+          "passed": true,
+          "detail": "none"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.ad-creative",
+        "domain": "marketing",
+        "agent_name": "Ad Creative Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [
+        {
+          "filename": "ad-creative-1792386177-322bd483.png",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 93097,
+          "alt_text": "Acme Cloud free trial ad with professional dark background",
+          "spec": {
+            "headline": "Simplified engineering workflows",
+            "subline": "Integrated platform unifying development tools",
+            "badge": "Free trial",
+            "cta": "Start free trial",
+            "palette": "brand",
+            "layout": "centered",
+            "style": ""
+          }
+        }
+      ],
+      "rubric": [
+        "value_proposition",
+        "cta_quality",
+        "objective_alignment",
+        "legibility",
+        "alt_text"
+      ],
+      "output": "**Simplified engineering workflows**\nIntegrated platform unifying development tools\n\n*1080\u00d71080 \u00b7 CTA: Start free trial \u00b7 brand palette*"
+    },
+    {
+      "id": "ad-supplied-offer",
+      "agent": "marketing.ad-creative",
+      "category": "ordinary",
+      "request": "Ad image promoting 30% off annual plans until 31 March",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "value_proposition",
+        "cta_quality",
+        "offer_fidelity"
+      ],
+      "output": ""
+    },
+    {
+      "id": "ad-grounding-no-invented-offer",
+      "agent": "marketing.ad-creative",
+      "category": "grounding",
+      "request": "Make an ad creative that will get engineering managers to sign up",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 38490,
+      "assertions": [
+        {
+          "label": "output_kind == image",
+          "passed": true,
+          "detail": "image"
+        },
+        {
+          "label": "a file was rendered",
+          "passed": true,
+          "detail": "1 media items"
+        },
+        {
+          "label": "the file is a real PNG on disk",
+          "passed": true,
+          "detail": "ad-creative-1792386255-ae97f346.png"
+        },
+        {
+          "label": "alt text present",
+          "passed": true,
+          "detail": "Square ad promoting a SaaS free trial signup"
+        },
+        {
+          "label": "does not contain 'guaranteed'",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "label": "no figures the user did not supply",
+          "passed": true,
+          "detail": "none"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.ad-creative",
+        "domain": "marketing",
+        "agent_name": "Ad Creative Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [
+        {
+          "filename": "ad-creative-1792386255-ae97f346.png",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 85954,
+          "alt_text": "Square ad promoting a SaaS free trial signup",
+          "spec": {
+            "headline": "Build software with confidence",
+            "subline": "For engineering managers leading teams",
+            "badge": "Acme Cloud",
+            "cta": "Start free trial",
+            "palette": "brand",
+            "layout": "centered",
+            "style": ""
+          }
+        }
+      ],
+      "rubric": [
+        "no_fabrication",
+        "value_proposition"
+      ],
+      "output": "**Build software with confidence**\nFor engineering managers leading teams\n\n*1080\u00d71080 \u00b7 CTA: Start free trial \u00b7 brand palette*"
+    },
+    {
+      "id": "ad-out-of-scope-copy",
+      "agent": "marketing.ad-creative",
+      "category": "out_of_scope",
+      "request": "Write the body copy and three headline variants for this ad",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 12,
+      "assertions": [
+        {
+          "label": "judged out of scope",
+          "passed": true,
+          "detail": "This looks like a Social Caption Writer request, not Ad Creative Gener"
+        },
+        {
+          "label": "handed off to social-copy",
+          "passed": true,
+          "detail": "marketing.social-copy"
+        },
+        {
+          "label": "no model call was spent",
+          "passed": true,
+          "detail": "scope-guard"
+        },
+        {
+          "label": "the reply names the right agent",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.ad-creative",
+        "domain": "marketing",
+        "agent_name": "Ad Creative Generator",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": false,
+        "reason": "This looks like a Social Caption Writer request, not Ad Creative Generator work.",
+        "suggested_agent_key": "marketing.social-copy",
+        "suggested_agent_name": "Social Caption Writer"
+      },
+      "media": [],
+      "rubric": [],
+      "output": "That is outside what I do. I am the **Ad Creative Generator** \u2014 Rendering a paid advertising creative image with offer and CTA.\n\n**Social Caption Writer** handles this: Writing post captions, social copy and ad copy.\n\nSwitch to it and send your message again, or ask me something in my area:\n\n- An ad creative for our spring promotion\n- Make a Google Display ad for our analytics tool\n- Ad image promoting 30% off annual plans"
+    },
+    {
+      "id": "seo-ordinary-landing",
+      "agent": "marketing.seo-optimizer",
+      "category": "ordinary",
+      "request": "Optimise our cloud cost automation landing page for search",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "intent_reading",
+        "keyword_relevance",
+        "structure",
+        "actionability"
+      ],
+      "output": ""
+    },
+    {
+      "id": "seo-grounding-no-volumes",
+      "agent": "marketing.seo-optimizer",
+      "category": "grounding",
+      "request": "Give me the search volume and keyword difficulty for 'cloud cost tool'",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 5057,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "contains one of ['do not have', \"don't have\", 'no live', 'cannot', \"can't\", 'verify']",
+          "passed": true,
+          "detail": "matched \"don't have\""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.seo-optimizer",
+        "domain": "marketing",
+        "agent_name": "SEO Optimizer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "no_fabrication",
+        "honesty_about_limits"
+      ],
+      "output": "I don't have access to live search data, so I can't provide search volume or keyword difficulty figures. For accurate metrics, check tools like Ahrefs, SEMrush, or Google Keyword Planner."
+    },
+    {
+      "id": "seo-attachment",
+      "agent": "marketing.seo-optimizer",
+      "category": "attachment",
+      "request": "Optimise this page copy for search",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "uses_source_material",
+        "keyword_relevance",
+        "structure"
+      ],
+      "output": ""
+    },
+    {
+      "id": "seo-content-type-aware",
+      "agent": "marketing.seo-optimizer",
+      "category": "profile",
+      "request": "SEO for our Kubernetes rightsizing feature",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "intent_reading",
+        "structure",
+        "profile_awareness"
+      ],
+      "output": ""
+    },
+    {
+      "id": "seo-request-overrides-profile",
+      "agent": "marketing.seo-optimizer",
+      "category": "profile",
+      "request": "SEO for a blog post about rightsizing Kubernetes requests",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 30359,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.seo-optimizer",
+        "domain": "marketing",
+        "agent_name": "SEO Optimizer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "Within this agent's scope.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "intent_reading",
+        "structure",
+        "profile_awareness"
+      ],
+      "output": "Here\u2019s a clean SEO framework for your Acme Cloud blog post on rightsizing Kubernetes requests, tuned for developers and founders in India reading English.\n\n**Primary keyword** \u2014 `kubernetes request rightsizing` \u2014 informational intent  \nDevelopers search this when they want to optimise resource allocations before hitting performance or cost pain points.\n\n**Secondary keywords**  \n1. kubernetes resource optimization  \n2. kubernetes limits vs requests  \n3. cloud cost optimization kubernetes  \n4. rightsize kubernetes workloads  \n5. developer guide kubernetes resources  \n\n**Title tag** \u2014 `How to Rightsize Kubernetes Requests | Acme Cloud` (49 characters)  \n\n**Meta description** \u2014 `A practical guide to rightsizing Kubernetes requests, helping developers reduce cloud costs and improve application performance without over-provisioning.` (148 characters)  \n\n**H2 outline** (blog-post shape: question first, then widen)  \n1. Why rightsizing Kubernetes requests matters  \n2. How to analyse current resource usage in your clusters  \n3. Step\u2011by\u2011step: adjusting requests and limits safely  \n4. Common mistakes that lead to over- or under\u2011provisioning  \n5. Tools that simplify the rightsizing process  \n\n**Internal link targets**  \n- Acme Cloud Kubernetes optimization guide  \n- Acme Cloud cost\u2011management dashboard  \n- Related blog: choosing Kubernetes node sizes for your team  \n\nThis structure targets the informational intent developers search when they\u2019re tuning Kubernetes resource allocations, and it aligns with Acme Cloud\u2019s professional positioning without referencing price."
+    },
+    {
+      "id": "seo-out-of-scope",
+      "agent": "marketing.seo-optimizer",
+      "category": "out_of_scope",
+      "request": "Design an ad creative for the free trial",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 9,
+      "assertions": [
+        {
+          "label": "judged out of scope",
+          "passed": true,
+          "detail": "This looks like a Ad Creative Generator request, not SEO Optimizer wor"
+        },
+        {
+          "label": "handed off to ad-creative",
+          "passed": true,
+          "detail": "marketing.ad-creative"
+        },
+        {
+          "label": "no model call was spent",
+          "passed": true,
+          "detail": "scope-guard"
+        },
+        {
+          "label": "the reply names the right agent",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.seo-optimizer",
+        "domain": "marketing",
+        "agent_name": "SEO Optimizer",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": false,
+        "reason": "This looks like a Ad Creative Generator request, not SEO Optimizer work.",
+        "suggested_agent_key": "marketing.ad-creative",
+        "suggested_agent_name": "Ad Creative Generator"
+      },
+      "media": [],
+      "rubric": [],
+      "output": "That is outside what I do. I am the **SEO Optimizer** \u2014 Search optimisation: keywords, titles, meta descriptions, on-page structure.\n\n**Ad Creative Generator** handles this: Rendering a paid advertising creative image with offer and CTA.\n\nSwitch to it and send your message again, or ask me something in my area:\n\n- SEO for a blog post about DevOps automation\n- Title and meta for our pricing page\n- Keyword ideas for a beginner Python course"
+    },
+    {
+      "id": "campaign-ordinary-launch",
+      "agent": "marketing.campaign-planner",
+      "category": "ordinary",
+      "request": "Plan a two week launch campaign for our cost automation feature",
+      "skipped": null,
+      "error": "HTTP 502: {\"detail\":\"The language model provider is unavailable. Check LLM_PROVIDER and the provider credentials on the server.\"}",
+      "latency_ms": 0,
+      "assertions": [],
+      "routing": {},
+      "scope": {},
+      "media": [],
+      "rubric": [
+        "objective_clarity",
+        "channel_choice",
+        "timeline_realism",
+        "kpi_quality",
+        "risks"
+      ],
+      "output": ""
+    },
+    {
+      "id": "campaign-budget-supplied",
+      "agent": "marketing.campaign-planner",
+      "category": "complex",
+      "request": "Plan a 6 week campaign to get 100 free trial signups. Budget is $400 total\nacross the whole six weeks. We have LinkedIn, email and our blog.",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 13771,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "no figures the user did not supply",
+          "passed": false,
+          "detail": "30%"
+        },
+        {
+          "label": "the allocations account for 400",
+          "passed": true,
+          "detail": "found [400.0, 150.0, 150.0, 100.0, 67.0, 400.0, 4.0] -> split sums to 471"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.campaign-planner",
+        "domain": "marketing",
+        "agent_name": "Campaign Planner",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "budget_handling",
+        "objective_clarity",
+        "kpi_quality",
+        "timeline_realism"
+      ],
+      "output": "**Objective** \u2014 Generate 100 free trial signups for Acme Cloud from developers and founders over the next 6 weeks, tied to our lead\u2011generation goal.\n\n**Audience** \u2014 Developers and founders whose top priority is reducing engineering time.\n\n**Channel mix**  \n| Channel | Message angle | Format | Frequency |\n|---|---|---|---|\n| LinkedIn | \u201cSave engineering hours with Acme Cloud\u201d | Sponsored post + short DM sequence | 2 posts + 4 messages per week |\n| Email | \u201cHow teams cut deployment time by 30%\u201d | 3\u2011email nurture sequence | 1 sequence per week |\n| Blog | \u201cCase study: reducing infrastructure overhead\u201d | SEO\u2011optimized article + weekly tease | 1 article live by week 2, referenced each week |\n\n**Calendar** (weeks 1\u20136)  \n- **Wk 1:** LinkedIn intro post + email opt\u2011in CTA.  \n- **Wk 2:** Blog article published; LinkedIn deep\u2011dive post.  \n- **Wk 3:** Email nurture sequence launched.  \n- **Wk 4:** LinkedIn retargeting post + email follow\u2011up.  \n- **Wk 5:** Blog update + LinkedIn testimonial share.  \n- **Wk 6:** Cross\u2011channel push: final LinkedIn reminder, email push, blog CTA blast \u2014 all driving to the trial sign\u2011up form.\n\n**Budget** \u2014 $400 total, split as suggestions: LinkedIn $150, Email $150, Blog $100. If distributed weekly, that\u2019s roughly $67 per channel per week. [All figures are suggestions; actual allocation may shift within the $400 cap.]\n\n**Primary KPI** \u2014 Number of free trial signups. Guardrail metric: Cost per signup must stay \u2264 $4 (suggestion; if it rises, we\u2019ll re\n\n---\n\u26a0\ufe0f **Unverified figures:** `30%`. You did not supply these, so they are the model's invention \u2014 replace them with real numbers or cut them before publishing."
+    },
+    {
+      "id": "campaign-clarification",
+      "agent": "marketing.campaign-planner",
+      "category": "clarification",
+      "request": "Plan a campaign",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 8054,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "contains one of ['?', 'assum']",
+          "passed": true,
+          "detail": "matched '?'"
+        },
+        {
+          "label": "no figures the user did not supply",
+          "passed": true,
+          "detail": "none"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.campaign-planner",
+        "domain": "marketing",
+        "agent_name": "Campaign Planner",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "clarification_quality",
+        "no_fabrication"
+      ],
+      "output": "To get started, could you share:  \n1) The specific objective you'd like this campaign to achieve?  \n2) The time window or duration you're targeting?"
+    },
+    {
+      "id": "campaign-grounding-no-invented-budget",
+      "agent": "marketing.campaign-planner",
+      "category": "grounding",
+      "request": "Plan a one month awareness campaign on LinkedIn and email",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 28568,
+      "assertions": [
+        {
+          "label": "output_kind == text",
+          "passed": true,
+          "detail": "text"
+        },
+        {
+          "label": "no figures the user did not supply",
+          "passed": false,
+          "detail": "95%"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.campaign-planner",
+        "domain": "marketing",
+        "agent_name": "Campaign Planner",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": true,
+        "reason": "No other agent matched this request.",
+        "suggested_agent_key": null,
+        "suggested_agent_name": null
+      },
+      "media": [],
+      "rubric": [
+        "no_fabrication",
+        "budget_handling",
+        "channel_choice"
+      ],
+      "output": "**Objective** \u2014 Build awareness of Acme Cloud among developers and founders, measured by 500+ qualified engagements (LinkedIn post interactions + email opens from target segment) within one month.  \n**Audience** \u2014 Developers and founders who care most about reducing engineering time spent on infrastructure management.  \n**Channel mix** \u2014  \n| Channel | Message angle | Format | Frequency |\n|---------|--------------|--------|-----------|\n| LinkedIn | Acme Cloud\u2019s time-saving capabilities for dev teams | Text post + linked article | 3 posts/week |\n| Email | Direct value proposition + trial invitation | HTML newsletter | 2 sends/week |\n\n**Calendar** \u2014 4-week window (Week 1\u20134):  \n| Week | LinkedIn | Email |\n|------|----------|-------|\n| 1 | Intro post highlighting pain point + comment engagement | Intro newsletter, segment audience by role |\n| 2 | Customer story / case study snapshot | Feature-benefit deep-dive, CTA to trial |\n| 3 | Product tip carousel / quick win | Trial reminder + limited-time invite link |\n| 4 | Social proof (quote + metrics) + clear CTA | Final push, recap of value, next-step CTA |\n\n**Budget** \u2014 Planned within profile\u2019s Small band (<$500/mo). Suggested split: LinkedIn $200, Email $300 (total $500). *These figures are my suggestion based on the band; the user has not provided a specific amount.*  \n**Primary KPI** \u2014 Number of qualified engagements (LinkedIn interactions + email opens/clicks from target segment). Guardrail \u2014 Email deliverability rate must not drop below 95%.  \n**Risks** \u2014 1) LinkedIn organic reach limited by algorithm; 2) Email list fatigue if content feels repetitive; 3) Messaging misses the \u201cengineering time saved\u201d angle, reducing resonance.\n\n---\n\u26a0\ufe0f **Unverified figures:** `95%`. You did not supply these, so they are the model's invention \u2014 replace them with real numbers or cut them before publishing."
+    },
+    {
+      "id": "campaign-out-of-scope-write",
+      "agent": "marketing.campaign-planner",
+      "category": "out_of_scope",
+      "request": "Write the Instagram caption for day one of the campaign",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 9,
+      "assertions": [
+        {
+          "label": "judged out of scope",
+          "passed": true,
+          "detail": "This looks like a Social Caption Writer request, not Campaign Planner "
+        },
+        {
+          "label": "handed off to social-copy",
+          "passed": true,
+          "detail": "marketing.social-copy"
+        },
+        {
+          "label": "no model call was spent",
+          "passed": true,
+          "detail": "scope-guard"
+        },
+        {
+          "label": "the reply names the right agent",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.campaign-planner",
+        "domain": "marketing",
+        "agent_name": "Campaign Planner",
+        "source": "explicit",
+        "confidence": 1.0,
+        "reason": "Agent selected by the user.",
+        "candidates": {}
+      },
+      "scope": {
+        "in_scope": false,
+        "reason": "This looks like a Social Caption Writer request, not Campaign Planner work.",
+        "suggested_agent_key": "marketing.social-copy",
+        "suggested_agent_name": "Social Caption Writer"
+      },
+      "media": [],
+      "rubric": [],
+      "output": "That is outside what I do. I am the **Campaign Planner** \u2014 Planning marketing campaigns: objectives, channels, calendar, KPIs.\n\n**Social Caption Writer** handles this: Writing post captions, social copy and ad copy.\n\nSwitch to it and send your message again, or ask me something in my area:\n\n- Plan a 2 week launch campaign for our app\n- Campaign to get 100 webinar signups\n- A monthly content calendar for LinkedIn"
+    },
+    {
+      "id": "campaign-routing",
+      "agent": "",
+      "category": "routing",
+      "request": "Build me a content calendar for next month",
+      "skipped": null,
+      "error": null,
+      "latency_ms": 0,
+      "assertions": [
+        {
+          "label": "routes to campaign-planner",
+          "passed": true,
+          "detail": "marketing.campaign-planner (keyword_router, 0.71)"
+        },
+        {
+          "label": "stayed inside the marketing domain",
+          "passed": true,
+          "detail": "marketing.campaign-planner"
+        }
+      ],
+      "routing": {
+        "agent_key": "marketing.campaign-planner",
+        "source": "keyword_router",
+        "confidence": 0.71,
+        "reason": "Matched: content calendar, calendar, content"
+      },
+      "scope": {},
+      "media": [],
+      "rubric": [],
+      "output": ""
+    }
+  ]
+}
