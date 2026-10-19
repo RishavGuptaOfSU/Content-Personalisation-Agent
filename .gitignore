@@ -3,8 +3,12 @@
 # These live at the root deliberately: when the repo was split into phase-1/ and
 # phase-2/, the original .gitignore went with phase-1, which left phase-2 with no
 # rules at all — API keys, virtualenvs, node_modules and the database were all
-# committable. Root-level patterns without a leading slash match at any depth,
-# so one file covers both phases and any phase added later.
+# committable. One file now covers both phases and any phase added later.
+#
+# Note on anchoring: a pattern with NO slash (".env", "node_modules/") matches at
+# any depth, but a pattern that CONTAINS a slash is anchored to this directory.
+# So "scripts/foo/*.json" would only ever match <root>/scripts/foo/ — never
+# phase-2/backend/scripts/foo/. Nested paths therefore need a leading "**/".
 
 # ---------------- secrets / config ----------------
 .env
@@ -57,8 +61,10 @@ generated_media/
 # curated by hand (the recorded baseline is worth keeping; 40 scratch runs are
 # not), so ignore them by default and force-add the ones that matter:
 #     git add -f phase-2/backend/scripts/marketing_eval/reports/<name>.md
-scripts/marketing_eval/reports/*.json
-scripts/marketing_eval/reports/*.md
+# The leading **/ matters: without it these patterns are anchored to the repo
+# root and silently match nothing.
+**/marketing_eval/reports/*.json
+**/marketing_eval/reports/*.md
 
 # ---------------- local backups ----------------
 .backup/
