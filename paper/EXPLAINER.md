@@ -1,7 +1,12 @@
 # The paper, in plain English
 
-For the four authors, and for anyone who has to present or defend this work.
+Prachi Sharma · Danish Kaul · Dishant Sherawat
+School of Engineering and Technology, Sushant University, Gurugram, Haryana
+
+For the authors, and for anyone who has to present or defend this work.
 No jargon that isn't explained.
+
+> A typeset version of this document is at `paper/explainer.pdf`.
 
 ---
 

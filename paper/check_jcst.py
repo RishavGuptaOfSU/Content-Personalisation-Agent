@@ -70,23 +70,46 @@ def main() -> int:
     else:
         check("compiled PDF present to count pages", False, f"{PDF} missing")
 
-    print("\n4. Double-blind review (no identifying information)")
+    # JCST reviews double-blind, but the same source is also handed in as
+    # coursework, where the authors' names must appear. Both are legitimate
+    # outputs, so detect which one this is rather than failing on one of them.
     lowered = BODY.lower()
-    for term in ("rishav", "gupta", "sharda", "greater noida", "github.com",
-                 "orcid"):
-        hit = term in lowered
-        check(f"no occurrence of {term!r}", not hit)
-    # An e-mail address, not the "@{}" of a tabular spec or @twocolumnfalse.
-    emails = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", BODY)
-    check("no e-mail address", not emails, ", ".join(emails) or "none")
-    # An acknowledgements *section* de-anonymizes; the word in running prose
-    # (e.g. "greetings and acknowledgements") does not.
-    ack = re.findall(r"\\(?:section|subsection)\*?\{[^}]*[Aa]cknowledg[^}]*\}", BODY)
-    check("no acknowledgements section", not ack, ", ".join(ack) or "none")
-    check("anonymity is stated on the title block",
-          "double-blind" in lowered and "withheld" in lowered)
-    check("no author biography in the submission",
-          "IEEEbiograph" not in BODY and r"\bio" not in BODY)
+    AUTHORS = ("prachi sharma", "danish kaul", "dishant sherawat")
+    named = any(name in lowered for name in AUTHORS)
+
+    if named:
+        print("\n4. Author identification: NAMED version (coursework)")
+        print("  [INFO] This build carries the author names and is suitable for")
+        print("         project or coursework submission.")
+        print("  [INFO] It is NOT suitable for JCST, which reviews double-blind.")
+        print("         Before submitting to the journal, replace the three name")
+        print("         lines in the title block with the anonymous variant noted")
+        print("         in the comment beside them, then re-run this check.")
+        for name in AUTHORS:
+            check(f"{name.title()} is listed", name in lowered)
+        check("affiliation is present",
+              "sushant university" in lowered)
+        check("no stale affiliation",
+              "sharda" not in lowered and "greater noida" not in lowered)
+    else:
+        print("\n4. Author identification: ANONYMOUS version (journal)")
+        for term in AUTHORS + ("sushant", "gurugram", "sharda", "greater noida",
+                               "github.com", "orcid"):
+            check(f"no occurrence of {term!r}", term not in lowered)
+        # An e-mail address, not the "@{}" of a tabular spec or @twocolumnfalse.
+        emails = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", BODY)
+        check("no e-mail address", not emails, ", ".join(emails) or "none")
+        # An acknowledgements *section* de-anonymizes; the word in running prose
+        # (e.g. "greetings and acknowledgements") does not.
+        ack = re.findall(r"\\(?:section|subsection)\*?\{[^}]*[Aa]cknowledg[^}]*\}", BODY)
+        check("no acknowledgements section", not ack, ", ".join(ack) or "none")
+        check("anonymity is stated on the title block",
+              "anonymous" in lowered and "withheld" in lowered)
+
+    check("no author biography in the manuscript (JCST wants it on acceptance)",
+          "IEEEbiograph" not in BODY)
+    check("no unresolved REPLACE markers", r"\REPLACE{" not in SRC,
+          f"{SRC.count(chr(92) + 'REPLACE{')} found")
 
     print("\n5. Figures (cited as Fig.N with no space; caption below,")
     print("   beginning 'Fig.N.')")

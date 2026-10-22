@@ -34,7 +34,7 @@ Dropped from the original four:
 | file | role |
 |---|---|
 | `jcst_paper.tex` | **the submission source** |
-| `jcst_paper.pdf` | compiled and inspected: 8 pages, two-column, Times |
+| `jcst_paper.pdf` | **compiled and inspected**: 8 pages, two-column, Times, authors named |
 | `figures/*.pdf` | vector figures for LaTeX |
 | `figures/*.png` | raster copies for Word and previews |
 | `check_jcst.py` | 55 checks against JCST's Instructions for Authors |

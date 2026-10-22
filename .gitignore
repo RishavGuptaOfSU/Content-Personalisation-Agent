@@ -81,9 +81,3 @@ Thumbs.db
 # ---------------- logs ----------------
 logs/
 *.log
-
-# ---------------- paper build output ----------------
-# The reading copy is generated from the .tex by make_reading_copy.py; the
-# submission artefacts are the .tex and figures/, which are tracked.
-paper/reading_copy.docx
-paper/reading_copy.pdf
