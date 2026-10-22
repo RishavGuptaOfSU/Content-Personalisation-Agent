@@ -23,41 +23,71 @@ are stated plainly.
 | file | role |
 |---|---|
 | `ieee_access_paper.tex` | the submission source (IEEEtran; 5,200 words of body text, 26 references) |
+| `ieee_access_paper.pdf` | **compiled and visually checked** — 8 pages, US Letter, two-column |
 | `figures/*.pdf` | vector figures for LaTeX |
 | `figures/*.png` | raster copies for Word and previews |
 | `make_figures.py` | regenerates every figure from the eval reports |
 | `check_claims.py` | verifies all 76 quantitative claims against the stored reports |
 | `make_reading_copy.py` | renders `reading_copy.docx` for review and sharing |
-| `reading_copy.docx` / `.pdf` | readable version; **not** the submission artefact |
+| `reading_copy.docx` / `.pdf` | single-column readable version; **not** IEEE-formatted, not for submission |
 
-## Compiling
+## Compile status
 
-There is no LaTeX installed on this machine. The simplest route:
+**Verified.** Compiled with Tectonic 0.17.0 and inspected page by page:
 
-1. Open [Overleaf](https://www.overleaf.com), create a project from the
-   **IEEE Access** template.
-2. Upload `ieee_access_paper.tex` and the `figures/` directory.
-3. Change the first line to `\documentclass{ieeeaccess}` and move the
-   `\title` / `\author` content into that class's form. Everything from
-   `\section{Introduction}` onward needs no change.
+- 8 pages, US Letter (612×792 pt), two-column
+- Times throughout (TeXGyreTermes), which is what IEEE requires
+- **0 overfull and 0 underfull boxes**
+- no undefined references or citations; all 26 references cited
+- Fig. 1 spans both columns; Figs. 2--4 sit in single columns
+- 5 tables in IEEE style with small-caps captions and footnote markers
+- author biography present (`IEEEbiographynophoto`)
+- the unresolved items render in red, so they cannot be missed in a proof
 
-It also compiles unmodified with any TeX distribution, because `IEEEtran` ships
-with all of them:
+Three real formatting defects were found and fixed during that check, which is
+the reason it was worth doing:
+
+1. The compile fell back to **Computer Modern** instead of Times, immediately
+   visible to an editor. Fixed by loading `newtxtext`/`newtxmath` — and note
+   that `amssymb` must *not* be loaded alongside `newtxmath`, as the two clash
+   over `\Bbbk` and the compile fails outright.
+2. The title set on three lines with the last word orphaned. Shortened.
+3. The running header read `Vol. XX`, which looks like an unfinished draft in a
+   submitted PDF. The publisher sets this at production.
+
+Fixing the font also eliminated all three overfull/underfull boxes.
+
+## Compiling it yourself
+
+There is no LaTeX on this machine; the PDF above was produced with a
+self-contained [Tectonic](https://tectonic-typesetting.github.io/) binary:
 
 ```bash
-pdflatex ieee_access_paper && pdflatex ieee_access_paper
+tectonic -X compile ieee_access_paper.tex --outdir out
 ```
 
-References are inline in a `thebibliography` block, so no BibTeX pass is needed.
+For the official submission, use the **IEEE Access** template on
+[Overleaf](https://www.overleaf.com):
+
+1. Create a project from that template.
+2. Upload `ieee_access_paper.tex` and the `figures/` directory.
+3. Change `\documentclass[journal]{IEEEtran}` to `\documentclass{ieeeaccess}`
+   and move the `\title` / `\author` content into that class's form.
+   Everything from `\section{Introduction}` onward needs no change.
+
+It also compiles unmodified with any TeX distribution, since `IEEEtran` ships
+with all of them. References are inline in a `thebibliography` block, so no
+BibTeX pass is needed.
 
 ## Before submitting
 
-Two items are deliberately marked in red in the compiled PDF so they cannot be
-missed. `check_claims.py` lists them:
+Three items are deliberately marked in red in the compiled PDF so they cannot
+be missed. `check_claims.py` lists them:
 
 ```
 institutional e-mail address
 public repository URL
+author biography (two to four sentences)
 ```
 
 The repository URL matters more than it looks. The paper claims every number is

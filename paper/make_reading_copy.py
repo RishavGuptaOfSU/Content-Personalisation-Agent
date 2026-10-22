@@ -51,8 +51,8 @@ def main() -> int:
     style.font.size = Pt(10.5)
 
     title = doc.add_heading(
-        "Deterministic Guardrails and Variance-Aware Evaluation for "
-        "Personalized Multi-Agent Content Generation", level=0)
+        "Deterministic Guardrails and Variance-Aware Evaluation "
+        "for Multi-Agent Content Personalization", level=0)
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     meta = doc.add_paragraph(
         "Rishav Gupta \u2014 Department of Computer Science and Engineering, "

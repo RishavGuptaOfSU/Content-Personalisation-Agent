@@ -20,14 +20,22 @@
 
 \documentclass[journal]{IEEEtran}
 
+% IEEE requires Times for body and math. Without this, a compile falls back to
+% Computer Modern, which is immediately visible to an editor. newtx is the
+% current standard pairing; if a distribution lacks it, "mathptmx" is the
+% older equivalent. The official ieeeaccess.cls sets this itself.
+% amsmath must load before newtxmath, and amssymb must not load at all:
+% newtxmath provides the same symbols and the two clash over \Bbbk.
+\usepackage{amsmath}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+
 \usepackage{graphicx}
-\usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
-\usepackage{textcomp}
 
 \graphicspath{{figures/}}
 
@@ -36,8 +44,11 @@
 
 \begin{document}
 
-\title{Deterministic Guardrails and Variance-Aware Evaluation for\\
-Personalized Multi-Agent Content Generation}
+% No manual line break: IEEEtran breaks the title itself, and a forced break
+% strands a fragment on a line of its own. Kept short enough to set on two
+% lines rather than three with an orphaned last word.
+\title{Deterministic Guardrails and Variance-Aware Evaluation
+for Multi-Agent Content Personalization}
 
 \author{
   Rishav~Gupta%
@@ -48,7 +59,9 @@ Personalized Multi-Agent Content Generation}
   this paper are available at \REPLACE{public repository URL}.}
 }
 
-\markboth{IEEE Access, Vol.~XX, 2026}%
+% The volume/issue header is set by the publisher at production; leaving a
+% literal "Vol. XX" in a submitted PDF looks like an unfinished draft.
+\markboth{IEEE Access}%
 {Gupta: Deterministic Guardrails and Variance-Aware Evaluation}
 
 \maketitle
@@ -951,5 +964,15 @@ LLMs by human preference,'' in \emph{Proc. Int. Conf. Machine Learning (ICML)},
 F.~Wilcoxon, ``Individual comparisons by ranking methods,'' \emph{Biometrics
 Bulletin}, vol.~1, no.~6, pp.~80--83, 1945.
 \end{thebibliography}
+
+% IEEE Access requires an author biography. Swap to \IEEEbiography and supply
+% a photograph if you have one that meets the template's size requirements;
+% IEEEbiographynophoto is acceptable and is used here.
+\begin{IEEEbiographynophoto}{Rishav Gupta}
+is with the Department of Computer Science and Engineering, Sharda University,
+Greater Noida, Uttar Pradesh, India. \REPLACE{two to four sentences: degree
+programme and expected year, research interests, any prior publications or
+relevant experience. Written in the third person.}
+\end{IEEEbiographynophoto}
 
 \end{document}
