@@ -1,0 +1,167 @@
+% =====================================================================
+% SEPARATE TITLE PAGE  --  JCST submission
+%
+% WHY THIS IS A SEPARATE FILE
+% ---------------------------------------------------------------------
+% JCST uses DOUBLE-BLIND peer review. Author names and affiliations must
+% NOT appear in the manuscript the reviewers read, so jcst_paper.pdf is
+% anonymous by design.
+%
+% Author details are supplied two other ways:
+%   1. Typed into the submission system when you create the submission.
+%   2. Uploaded as this separate title page, which the editor sees and
+%      the reviewers do not.
+%
+% Do NOT merge this into jcst_paper.tex before submission. The author
+% block goes back into the manuscript only for the camera-ready version,
+% after acceptance -- there is a commented-out block at the top of
+% jcst_paper.tex ready for exactly that.
+%
+% BEFORE SUBMITTING - search for REPLACE and fill in every hit.
+% =====================================================================
+
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{newtxtext}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{parskip}
+
+\newcommand{\REPLACE}[1]{\textcolor{red}{\textbf{[REPLACE: #1]}}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Deterministic Guardrails and Variance-Aware Evaluation\\
+for Multi-Agent Content Personalization\par}
+
+\vspace{6pt}
+{\small Submitted to \emph{Journal of Computer Science and Technology}\par}
+{\small Article type: Research Paper\par}
+\end{center}
+
+\vspace{18pt}
+
+\section*{Authors}
+
+\noindent
+% ---------------------------------------------------------------------
+% AUTHOR ORDER MATTERS and cannot be changed after publication. Agree it
+% between yourselves before submitting. The order below is a placeholder:
+% put whoever contributed most to the research first.
+%
+% One author must be designated corresponding author. That person
+% receives all editorial correspondence and must be reachable for the
+% months a review cycle takes.
+% ---------------------------------------------------------------------
+\textbf{Rishav Gupta}\,$^{1,*}$\quad
+\textbf{Prachi Sharma}\,$^{1}$\quad
+\textbf{Danish Kaul}\,$^{1}$\quad
+\textbf{Dishant Sherawat}\,$^{1}$
+
+\vspace{10pt}
+\noindent
+$^{1}$\,School of Engineering and Technology, Sushant University,
+Gurugram, Haryana, India
+
+\vspace{4pt}
+\noindent
+$^{*}$\,Corresponding author
+\REPLACE{confirm who the corresponding author is}
+
+\vspace{18pt}
+
+\section*{Contact details}
+
+\begin{tabular}{@{}ll@{}}
+Corresponding author & \REPLACE{full name}\\
+Institutional e-mail & \REPLACE{name@sushantuniversity.edu.in}\\
+Telephone            & \REPLACE{phone with country code}\\
+Postal address       & \REPLACE{full department and campus address, with PIN}\\
+ORCID                & \REPLACE{ORCID iD, or delete this row --- free at orcid.org}\\
+\end{tabular}
+
+\vspace{6pt}
+\noindent
+\REPLACE{e-mail address for each remaining author, or state that
+correspondence should go to the corresponding author only}
+
+\vspace{18pt}
+
+\section*{Author contributions}
+
+% Journals increasingly expect this, and for a student team it is the
+% cleanest way to show who did what. Edit to match reality -- do not
+% leave it as written.
+\REPLACE{complete this honestly, e.g.: R.G. designed the agent
+architecture and the evaluation harness, implemented the scope and
+grounding guards, and ran the model comparison. P.S. implemented the
+frontend and the personalization panel. D.K. implemented the memory
+subsystem and the attachment pipeline. D.S. built the media renderer and
+the layout probe. All authors contributed to the manuscript and approved
+the submitted version.}
+
+\vspace{18pt}
+
+\section*{Declarations}
+
+\textbf{Originality.} This manuscript is original work. It has not been
+published previously and is not under consideration for publication
+elsewhere, in whole or in part. No version of it has been submitted to
+any other journal or conference.
+
+\vspace{6pt}
+\noindent
+\textbf{Prior versions.} None. No preliminary version of this work has
+appeared in any venue, so JCST's requirement to reference a preliminary
+version in the third person does not apply.
+\REPLACE{if any part of this was presented at a college symposium,
+submitted as a course project report, or posted as a preprint, say so
+here --- editors check, and an undeclared prior version is a far worse
+problem than a declared one}
+
+\vspace{6pt}
+\noindent
+\textbf{Competing interests.} The authors declare no competing financial
+or non-financial interests.
+
+\vspace{6pt}
+\noindent
+\textbf{Funding.} \REPLACE{state the funding source, or: This research
+received no specific grant from any funding agency.}
+
+\vspace{6pt}
+\noindent
+\textbf{Data and code availability.} The source code, the 30-case
+evaluation dataset and every run report underlying the reported results
+will be released publicly on acceptance. They are withheld during review
+because the repository identifies the authors.
+
+\vspace{6pt}
+\noindent
+\textbf{Ethics.} This work involved no human participants, no personal
+data and no animal subjects. All brand and user profiles used in the
+evaluation are synthetic.
+
+\vspace{6pt}
+\noindent
+\textbf{Use of generative AI.} \REPLACE{JCST and Springer require
+disclosure of generative-AI use in manuscript preparation. State plainly
+what was used and for what --- for example that large language models
+were the object of study and were also used to assist drafting and code
+review, with all content verified by the authors. Do not omit this.}
+
+\vspace{18pt}
+
+\section*{Anonymity statement}
+
+The manuscript file (\texttt{jcst\_paper.pdf}) has been prepared for
+double-blind review. It contains no author name, affiliation, e-mail
+address, acknowledgement or repository link. Model and software names
+that appear in the manuscript are the subject of the study and do not
+identify the authors.
+
+\end{document}
