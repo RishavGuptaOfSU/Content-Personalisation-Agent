@@ -1,133 +1,141 @@
-# Paper: IEEE Access submission
+# Paper
 
-One paper, one target venue. This replaces the four near-duplicate drafts in the
-repository root (`research_paper_IJEC/IJRTMR/JCST/JSR.*`), which described the
-same findings and would have constituted redundant submission if sent out
-concurrently.
+**Target: Journal of Computer Science and Technology (JCST).** One venue, one
+manuscript.
 
-## Target: IEEE Access
+This replaces the four near-duplicate drafts in the repository root
+(`research_paper_IJEC/IJRTMR/JCST/JSR.*`), which described the same findings and
+would have constituted redundant submission if sent out concurrently.
 
-Chosen because its review criteria are technical soundness and usefulness to the
-community rather than beating a state-of-the-art benchmark, which is the right
-fit for a systems-plus-measurement paper. It is indexed in Scopus and Web of
-Science, so it satisfies an indexing requirement. It charges an article
-processing charge — **confirm the current figure before committing**.
+## Why JCST
 
-Acceptance is never guaranteed. What this draft does is remove the reasons a
-paper gets desk-rejected before review: it is long enough, it has figures, every
-number traces to a stored artefact, the statistics are real, and the limitations
-are stated plainly.
+| | |
+|---|---|
+| publisher | Springer, for the Institute of Computing Technology (CAS) and the China Computer Federation |
+| indexing | Scopus and SCI |
+| cost | **none** — subscription journal; the article processing charge applies only if you elect open access |
+| scope | "all aspects of computer science and technology", which this paper sits inside |
+| review | double-blind |
+
+It was your own first choice. An earlier draft of this work was aimed at IEEE
+Access, which charges **$2,160 regardless of outcome**; JCST is indexed at least
+as well and costs nothing, so there was no reason to pay.
+
+Dropped from the original four:
+
+- **IJEC** (Int. J. of Electronic Commerce, Taylor & Francis) — a good journal,
+  but it publishes electronic-commerce and information-systems research. This
+  is systems engineering and evaluation methodology. Desk-rejected on scope.
+- **IJRTMR** (FDRP) — not in Scopus or SCImago.
+- **JSR** (Journal of Student Research) — viable fallback, not Scopus-indexed.
 
 ## Files
 
 | file | role |
 |---|---|
-| `ieee_access_paper.tex` | the submission source (IEEEtran; 5,200 words of body text, 26 references) |
-| `ieee_access_paper.pdf` | **compiled and visually checked** — 8 pages, US Letter, two-column |
+| `jcst_paper.tex` | **the submission source** |
+| `jcst_paper.pdf` | compiled and inspected: 8 pages, two-column, Times |
 | `figures/*.pdf` | vector figures for LaTeX |
 | `figures/*.png` | raster copies for Word and previews |
-| `make_figures.py` | regenerates every figure from the eval reports |
-| `check_claims.py` | verifies all 76 quantitative claims against the stored reports |
-| `make_reading_copy.py` | renders `reading_copy.docx` for review and sharing |
-| `reading_copy.docx` / `.pdf` | single-column readable version; **not** IEEE-formatted, not for submission |
+| `check_jcst.py` | 55 checks against JCST's Instructions for Authors |
+| `check_claims.py` | 76 checks: every number against the stored eval reports |
+| `make_figures.py` | regenerates every figure from those reports |
+| `ieee_access_paper.tex` / `.pdf` | the IEEE Access variant, kept in case you ever want that venue |
+| `make_reading_copy.py`, `reading_copy.*` | single-column reading copy; **not** for submission |
 
-## Compile status
+## The one thing this repository cannot contain
 
-**Verified.** Compiled with Tectonic 0.17.0 and inspected page by page:
+JCST mandates its own LaTeX class, distributed only from the journal's own
+download page and not redistributable:
 
-- 8 pages, US Letter (612×792 pt), two-column
-- Times throughout (TeXGyreTermes), which is what IEEE requires
-- **0 overfull and 0 underfull boxes**
-- no undefined references or citations; all 26 references cited
-- Fig. 1 spans both columns; Figs. 2--4 sit in single columns
-- 5 tables in IEEE style with small-caps captions and footnote markers
-- author biography present (`IEEEbiographynophoto`)
-- the unresolved items render in red, so they cannot be missed in a proof
+> <https://jcst.ict.ac.cn/> → **Download Templates** → *JCST Submit Template
+> (LaTeX)*. The package also contains `JCST.bst`.
 
-Three real formatting defects were found and fixed during that check, which is
-the reason it was worth doing:
+So `jcst_paper.tex` carries an **emulation preamble** that reproduces JCST's
+page layout closely enough to proof-read and verify, and the manuscript proper
+sits between two markers:
 
-1. The compile fell back to **Computer Modern** instead of Times, immediately
-   visible to an editor. Fixed by loading `newtxtext`/`newtxmath` — and note
-   that `amssymb` must *not* be loaded alongside `newtxmath`, as the two clash
-   over `\Bbbk` and the compile fails outright.
-2. The title set on three lines with the last word orphaned. Shortened.
-3. The running header read `Vol. XX`, which looks like an unfinished draft in a
-   submitted PDF. The publisher sets this at production.
-
-Fixing the font also eliminated all three overfull/underfull boxes.
-
-## Compiling it yourself
-
-There is no LaTeX on this machine; the PDF above was produced with a
-self-contained [Tectonic](https://tectonic-typesetting.github.io/) binary:
-
-```bash
-tectonic -X compile ieee_access_paper.tex --outdir out
+```
+% ============================== BODY-BEGIN
+...
+% =============================== BODY-END
 ```
 
-For the official submission, use the **IEEE Access** template on
-[Overleaf](https://www.overleaf.com):
+**To produce the real submission:** download the official template, open its
+main `.tex`, and paste everything between those markers into it. Nothing in the
+body depends on the emulation preamble except three one-line macros
+(`\figref`, `\tabref`, `\tabnote`) which can be inlined if the template
+objects. Then confirm the page count still lands in 8–16.
 
-1. Create a project from that template.
-2. Upload `ieee_access_paper.tex` and the `figures/` directory.
-3. Change `\documentclass[journal]{IEEEtran}` to `\documentclass{ieeeaccess}`
-   and move the `\title` / `\author` content into that class's form.
-   Everything from `\section{Introduction}` onward needs no change.
+## Verified against JCST's published rules
 
-It also compiles unmodified with any TeX distribution, since `IEEEtran` ships
-with all of them. References are inline in a `thebibliography` block, so no
-BibTeX pass is needed.
+`check_jcst.py` — all 55 pass:
+
+| JCST rule | status |
+|---|---|
+| Abstract 100–250 words | **243** |
+| Abstract: no undefined abbreviations, no mathematics, no citations | pass |
+| Keywords: 3–5, alphabetical, comma separated | **5**, alphabetical |
+| Research Paper length 8–16 pages inc. figures, tables, references | **8** |
+| Double-blind: no name, affiliation, e-mail, repository URL, acknowledgements | pass |
+| Tables: vertical three-line only, no vertical rules | 5 tables |
+| Table captions above, Title Case; notes beneath as "Note:" | pass |
+| Figures cited `Fig.N` (no space); captions below as "Fig.N." | 4 figures |
+| Citations: square brackets, numbered in first-citation order | 26 refs |
+| Author biography and photo supplied only on acceptance | omitted |
+| Running head ≤ 45 characters | **43** |
+
+Compile status, checked page by page: 8 pages, US Letter, two-column, Times
+(TeXGyreTermes) embedded, one 0.9 pt vertical overflow, no undefined references.
 
 ## Before submitting
 
-Three items are deliberately marked in red in the compiled PDF so they cannot
-be missed. `check_claims.py` lists them:
+1. **Move the body into the official JCST template** (above). This is required,
+   not optional — JCST desk-rejects on template.
+2. **Anonymity is already handled**, but re-read once after moving: the title
+   block says author details are withheld, there is no e-mail, no affiliation,
+   no acknowledgements section, and the reproducibility paragraph promises the
+   artefact release *on acceptance* rather than linking it.
+3. **Biography and a 600 dpi photo** are needed only if accepted. One
+   `\REPLACE` marker in the file reminds you.
+4. Write the cover letter. JCST asks that any prior version be referenced in
+   the third person and the new contribution explained; there is no prior
+   version here, so state that the work is original and not under review
+   elsewhere.
 
-```
-institutional e-mail address
-public repository URL
-author biography (two to four sentences)
-```
-
-The repository URL matters more than it looks. The paper claims every number is
-reproducible from stored artefacts, and IEEE Access reviewers do check
-reproducibility statements. Push the code and the `reports/` directory first,
-then paste the URL.
-
-## Regenerating everything
+## Regenerating and re-verifying
 
 ```bash
 # figures, straight from the measured reports
 phase-2/backend/.venv/bin/python paper/make_figures.py
 
-# verify every number in the .tex still matches those reports
-phase-2/backend/.venv/bin/python paper/check_claims.py
+# every number in the manuscript still matches those reports
+phase-2/backend/.venv/bin/python paper/check_claims.py jcst_paper.tex
 
-# readable copy
-python3 paper/make_reading_copy.py
-soffice --headless --convert-to pdf --outdir paper paper/reading_copy.docx
+# still conforms to JCST's instructions
+python3 paper/check_jcst.py
 ```
 
-`check_claims.py` is the important one. It recomputes each figure from the JSON
-and asserts the LaTeX contains the matching string, so if a report is re-run and
-a number moves, the check fails instead of the paper quietly going stale.
+`check_claims.py` recomputes each figure from the report JSON and asserts the
+manuscript states it, so if an eval is re-run and a number moves, the check
+fails instead of the paper quietly going stale. It accepts either manuscript as
+an argument and normalises wording differences, so the same 76 claims are
+verified for both the JCST and IEEE versions.
 
 ## What changed from the four earlier drafts
 
-- **Framing.** The earlier drafts narrated the project ("Phase 1 delivers
-  breadth, Phase 2 delivers depth") and reported test-suite counts as headline
-  results. This one states four research questions and leads with the
-  measurement findings, which are the transferable part.
+- **Framing.** They narrated the project ("Phase 1 delivers breadth, Phase 2
+  delivers depth") and reported test-suite counts as headline results. This
+  states four research questions and leads with the measurement findings.
 - **Length.** 2,300–2,800 words → 5,200 words of body text.
 - **Statistics.** None → a paired Wilcoxon signed-rank test with exact *p*,
-  effect size, and a measured noise floor that the conclusions are bounded by.
+  effect size, and a measured noise floor that bounds every conclusion.
 - **Figures.** None → four, generated from the data rather than drawn by hand.
 - **Related work.** Three paragraphs → four subsections positioned against the
-  guardrail and LLM-judge literature, which is where a reviewer will push.
-- **Negative results kept.** The per-agent model hypothesis failed; the paper
-  reports it as a failure with the statistics, rather than dropping it.
-- **Threats to validity.** Added, including the one that matters most: no human
-  validation of the judge.
+  guardrail and automatic-judge literature, which is where a reviewer pushes.
+- **Negative result kept.** The per-agent model hypothesis failed; it is
+  reported as a failure with its statistics rather than dropped.
+- **Threats to validity.** Added, including the one that matters most: the
+  judge was never validated against human raters.
 - **Placeholders.** `rishav.gupta@example.com` and `Volume XX / ISSN XXXX-XXXX`
-  are gone; the two genuine unknowns are flagged loudly instead.
+  are gone.
