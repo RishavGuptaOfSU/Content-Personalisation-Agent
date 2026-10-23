@@ -376,4 +376,78 @@ A bigger model fixed three test failures, and we show that. It did \emph{not}
 stop figure fabrication, and it cannot perform the scope handoff for free. The
 guards and the model solve different problems.
 
+% ---------------------------------------------------------------------
+\section{``Why build this when ChatGPT already exists?''}
+
+Expect this question first. It deserves a full answer rather than a defensive
+one.
+
+\textbf{We did not rebuild ChatGPT.} Our system \emph{calls} a language model;
+it does not replace one. So the question is not whether this is better than
+ChatGPT. It is what we added around the model, and whether we can show it
+works. Four answers, three of them measured.
+
+\subsection{Telling a model not to invent numbers does not work}
+
+This is the strongest point, because it is a result rather than an opinion. The
+instruction was in the system prompt, and the model \textbf{kept fabricating
+figures}.
+
+ChatGPT has no provenance check. Ask it for a post about cloud savings and it
+will write ``cut your bill by 40\%'' in confident prose, and you get \emph{no
+signal at all} that the number is invented. Published under a brand name, that
+is a false advertising claim.
+
+Our grounding guard is 178 lines of deterministic code. It checks every
+claim-shaped number against what the user actually supplied, flags what it
+cannot account for, costs no API call, and returns the same answer every time.
+
+\subsection{Structured personalization, not a pasted brief}
+
+Be honest here: ChatGPT does have memory and custom GPTs. What it lacks is
+\emph{scope}. Our brand tone sits at domain level and reaches all five agents;
+``at most three hashtags'' sits at agent level and reaches only the caption
+writer, because it is meaningless to the campaign planner. The alternative is
+re-pasting the brief every session and trusting unstructured memory to select
+the relevant parts.
+
+\subsection{Routing that costs nothing}
+
+Ask the caption writer for an advertisement image and it hands you off
+instantly, consuming zero tokens, because the decision is four comparisons in
+plain code rather than a model call. ChatGPT will attempt whatever you ask,
+badly, and bill you for the attempt.
+
+\subsection{A way to know whether a change helped}
+
+This is the actual research contribution, and it is the answer to give if the
+questioner pushes hardest. \textbf{ChatGPT offers no measurement.} We built 110
+deterministic assertions and an automatic judge with a \emph{measured} noise
+floor. That apparatus is what surfaced the collapsed scoring scale, the judge's
+0.51--0.54 disagreement with itself, and the finding that per-agent model
+selection is not justified. None of those results come from using a chat
+interface; they come from building an evaluation harness and distrusting your
+own numbers.
+
+\subsection{State the limit before they do}
+
+A Custom GPT with a well-written system prompt gets you \emph{some} of this.
+What it cannot give you is deterministic post-processing that runs on the
+output, zero-cost routing, evaluation you can re-run after a change, or the
+ability to move between a local model, a hosted API and AWS Bedrock by changing
+one environment variable.
+
+Then offer the counter-evidence, which is more persuasive than a defence: a
+bigger model \emph{did} fix three of our test failures, and we report it. Model
+capability genuinely matters. But it did not stop fabrication and it cannot
+perform the handoff for free. That is the dividing line between what a better
+model solves and what engineering has to solve.
+
+\begin{callout}
+\textbf{The one-liner.} ChatGPT is a general assistant. We built a system that
+produces brand-specific marketing copy \emph{and can prove it did not invent
+the statistics} --- and the paper is about how hard that turns out to be to
+measure honestly.
+\end{callout}
+
 \end{document}

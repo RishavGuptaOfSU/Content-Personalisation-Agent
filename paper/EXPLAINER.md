@@ -289,3 +289,34 @@ evaluation.
 A bigger model fixed three test failures — we show that. It did *not* stop
 figure fabrication, and it cannot do the scope handoff for free. The guards and
 the model are solving different problems.
+
+**"Why build this when ChatGPT already exists?"**
+Expect this one first. We did not rebuild ChatGPT — our system *calls* a
+language model. The question is what we added around it, and four answers hold:
+
+1. **Telling a model "don't invent numbers" does not work, and we proved it.**
+   The instruction was in the system prompt and it kept fabricating figures.
+   ChatGPT has no provenance check: it will write "cut your bill by 40%" in
+   confident prose and give you no signal the number is invented. Publish that
+   under a brand name and it is a false advertising claim. Our guard is 178
+   lines of deterministic code, no model call, same answer every time.
+2. **Structured personalization rather than a pasted brief.** ChatGPT does have
+   memory and custom GPTs — say so honestly. What it lacks is *scope*: our
+   brand tone reaches all five agents while "at most three hashtags" reaches
+   only the caption writer, because it is meaningless to the others.
+3. **Routing that costs nothing.** A wrong-agent request is handed off in four
+   comparisons of plain code — instantly, zero tokens. ChatGPT attempts
+   whatever you ask, badly, and bills you for it.
+4. **A way to know whether a change helped.** This is the actual research.
+   ChatGPT gives you no measurement. We have 110 deterministic assertions and a
+   judge with a measured noise floor, which is how we found the collapsed
+   scoring scale and the per-agent model result.
+
+State the limit before they do: a Custom GPT with a good system prompt gets you
+*some* of this. What it cannot give you is deterministic post-processing,
+zero-cost routing, reproducible evaluation, or the ability to swap between a
+local model, a hosted API and AWS Bedrock by changing one environment variable.
+
+The one-liner: *ChatGPT is a general assistant; we built a system that produces
+brand-specific marketing copy and can prove it did not invent the statistics —
+and the paper is about how hard that turns out to be to measure honestly.*
